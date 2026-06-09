@@ -1,0 +1,1988 @@
+{
+  "info": {
+    "_postman_id": "f429edeb-53fa-4a08-a773-172fc3e1987b",
+    "name": "My Collection",
+    "description": "### Welcome to Postman! This is your first collection. \n\nCollections are your starting point for building and testing APIs. You can use this one to:\n\n• Group related requests\n• Test your API in real-world scenarios\n• Document and share your requests\n\nUpdate the name and overview whenever you’re ready to make it yours.\n\n[Learn more about Postman Collections.](https://learning.postman.com/docs/collections/collections-overview/)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "55431461",
+    "_collection_link": "https://go.postman.co/collection/55431461-f429edeb-53fa-4a08-a773-172fc3e1987b?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "India UPI P2P",
+      "item": [
+        {
+          "name": "PayIn",
+          "item": [
+            {
+              "name": "india upi p2p HPP PayIn",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Successful POST request\", function () {",
+                      "    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                      "});",
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      "const CryptoJS = require('crypto-js');",
+                      "",
+                      "const PASSWORD = pm.environment.get(\"PASSWORD\");",
+                      "",
+                      "const requestBody = JSON.parse(pm.request.body.raw);",
+                      "const orderId = crypto.randomUUID();",
+                      "",
+                      "const orderNumber = orderId;       ",
+                      "const orderAmount = requestBody.order.amount;",
+                      "const orderCurrency = requestBody.order.currency;",
+                      "const orderDescription = requestBody.order.description;",
+                      "",
+                      "const to_md5 = orderNumber + orderAmount + orderCurrency + orderDescription + PASSWORD;",
+                      "",
+                      "const md5Hash = CryptoJS.MD5(to_md5.toUpperCase()).toString();",
+                      "const sha1Hash = CryptoJS.SHA1(md5Hash);",
+                      "const hash = CryptoJS.enc.Hex.stringify(sha1Hash);",
+                      "pm.variables.set(\"computed_hash\", hash);",
+                      "pm.variables.set(\"number\", orderNumber);"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"merchant_key\": \"{{merchant_key}}\",\n    \"operation\": \"purchase\",\n    \"methods\": [\"fp-upi\"],\n    \"order\": {\n    \"number\": \"{{number}}\",\n    \"amount\": \"500.00\",\n    \"currency\": \"INR\",\n    \"description\": \"Test payment\"\n  },\n    \"customer\": {\n        \"name\": \"John Doe\",\n        \"email\": \"payer@example.com\"\n  },\n    \"success_url\": \"https://example.com/success\",\n    \"cancel_url\": \"https://example.com/cancel\",\n    \"hash\": \"{{computed_hash}}\"\n}\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{HPP_HOST}}/api/v1/session",
+                  "host": [
+                    "{{HPP_HOST}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "session"
+                  ]
+                },
+                "description": "## 📥 Request Body\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `merchant_key` | String | ✅ Yes | Key for Merchant identification |\n| `operation` | String | ✅ Yes | Send the “purchase” value so that the payment page for sale initiation will be shown to the customer. |\n| `methods` | Array | ✅ Yes | An array of payment methods |\n| `order` | Object | ✅ Yes | Information about an order |\n| `order.number` | String | ✅ Yes | Order ID - is a merchant system ID that refers to particular payment attempt. It is recommended to use unique Order ID per each payment request |\n| `order.amount` | String | ✅ Yes | Format depends on currency |\n| `order.currency` | String | ✅ Yes | Currency |\n| `order.description` | String | ✅ Yes | Product name |\n| `customer` | Object | ✅ Yes | Customer's information. Send an object if a payment method needs |\n| `customer.name` | String | ✅ Yes | Full name of the customer |\n| `customer.email` | String | ✅ Yes | Email address of the customer |\n| `success_url` | String | ✅ Yes | URL to redirect the Customer in case of the successful payment |\n| `cancel_url` | String | ✅ Yes | URL to return Customer in case of a payment cancellation (“Close” button on the Checkout page) |\n| `hash` | String | ✅ Yes | Special signature to validate your request to Payment Platform Addition in Signature section. |"
+              },
+              "response": [
+                {
+                  "name": "200 OK",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"redirect_url\": \"https://example.domain.com/auth/ZXlKMGVYQWlPaUpL...\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{HPP_HOST}}/api/v1/session",
+                      "host": [
+                        "{{HPP_HOST}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v1",
+                        "session"
+                      ]
+                    }
+                  },
+                  "_postman_previewlanguage": "",
+                  "header": [],
+                  "cookie": [
+                    {
+                      "expires": "Invalid Date",
+                      "domain": "",
+                      "path": ""
+                    }
+                  ],
+                  "body": ""
+                }
+              ]
+            },
+            {
+              "name": "india upi p2p H2H PayIn",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      "const CryptoJS = require('crypto-js');",
+                      "",
+                      "const PASSWORD = pm.environment.get(\"PASSWORD\");",
+                      "const orderId = crypto.randomUUID();",
+                      "",
+                      "const identifier = pm.request.body.urlencoded.get(\"identifier\");",
+                      "const order_id = orderId;",
+                      "const order_amount = pm.request.body.urlencoded.get(\"order_amount\");",
+                      "const order_currency = pm.request.body.urlencoded.get(\"order_currency\");",
+                      "",
+                      "const to_md5 = identifier + order_id + order_amount + order_currency + PASSWORD;",
+                      "",
+                      "const reversed = to_md5.split('').reverse().join('');",
+                      "const upper = reversed.toUpperCase();",
+                      "const hash = CryptoJS.MD5(upper).toString().toLowerCase();",
+                      "",
+                      "pm.environment.set(\"computed_hash\", hash);",
+                      "pm.environment.set(\"order_id\", order_id);",
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "action",
+                      "value": "SALE",
+                      "type": "text",
+                      "uuid": "2a2a5571-5430-4188-b76b-ff1c6e07e0b8"
+                    },
+                    {
+                      "key": "client_key",
+                      "value": "{{merchant_key}}",
+                      "type": "text",
+                      "uuid": "6185324e-d737-457e-a0df-14c1266afed4"
+                    },
+                    {
+                      "key": "brand",
+                      "value": "fp-upi",
+                      "type": "text",
+                      "uuid": "81d70ee5-97e2-49db-a913-6e281015f352"
+                    },
+                    {
+                      "key": "order_id",
+                      "value": "{{order_id}}",
+                      "type": "text",
+                      "uuid": "448eb846-4684-4198-9fdf-74060d1b9f6c"
+                    },
+                    {
+                      "key": "order_amount",
+                      "value": "1000.00",
+                      "type": "text",
+                      "uuid": "875fca98-1ef4-42a3-bcc0-852695afcaea"
+                    },
+                    {
+                      "key": "order_currency",
+                      "value": "INR",
+                      "type": "text",
+                      "uuid": "1d4307bf-a549-4701-be25-c3aac4355292"
+                    },
+                    {
+                      "key": "order_description",
+                      "value": "Test payment",
+                      "type": "text",
+                      "uuid": "278211d2-f046-46f3-89f3-6ca89730aa5c"
+                    },
+                    {
+                      "key": "identifier",
+                      "value": "payer@example.com",
+                      "type": "text",
+                      "uuid": "38837e8f-66db-431f-8b0c-442ff10a27e0"
+                    },
+                    {
+                      "key": "payee_first_name",
+                      "value": "John",
+                      "type": "text",
+                      "uuid": "6ae6b637-32af-4b6f-a717-2cef179d3e8f"
+                    },
+                    {
+                      "key": "payee_last_name",
+                      "value": "Doe",
+                      "type": "text",
+                      "uuid": "a4efe712-3bc6-4d2c-a381-6c3e63ec7d0b"
+                    },
+                    {
+                      "key": "payee_email",
+                      "value": "payer@example.com",
+                      "type": "text",
+                      "uuid": "4b868680-0cb4-4d55-8a9a-41c3be916134"
+                    },
+                    {
+                      "key": "payer_phone",
+                      "value": "+911234567890",
+                      "type": "text",
+                      "uuid": "fa2e4eb8-4946-4c24-990e-87498414f28f"
+                    },
+                    {
+                      "key": "payer_ip",
+                      "value": "192.167.1.1",
+                      "type": "text",
+                      "uuid": "b54c3001-f998-4b10-9ef4-135b02e05064"
+                    },
+                    {
+                      "key": "return_url",
+                      "value": "https://example.com/return",
+                      "type": "text",
+                      "uuid": "60179392-e77b-4b21-931e-d09f8270a435"
+                    },
+                    {
+                      "key": "hash",
+                      "value": "{{computed_hash}}",
+                      "type": "text",
+                      "uuid": "aaf29a9b-01ac-42b7-827a-4a97f3babf67"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{H2H_HOST}}/post",
+                  "host": [
+                    "{{H2H_HOST}}"
+                  ],
+                  "path": [
+                    "post"
+                  ]
+                },
+                "description": "### 📥 Request Body\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `action` | String | ✅ Yes | Action to perform (=SALE) |\n| `client_key` | String | ✅ Yes | Unique client key (CLIENT_KEY) |\n| `brand` | String | ✅ Yes | Brand through which the transaction is performed |\n| `order_id` | String | ✅ Yes | Transaction ID in the Clients system |\n| `order_amount` | Number | ✅ Yes | The amount of the transaction |\n| `order_currency` | String | ✅ Yes | Currency |\n| `order_description` | String | ✅ Yes | Description of the transaction (product name) |\n| `identifier` | String | ✅ Yes | Extra parameter for transaction. It could be token, account information, additional descriptor etc. |\n| `payer_first_name` | String | ✅ Yes | Customer's first name |\n| `payer_last_name` | String | ✅ Yes | Customer's last name |\n| `payer_email` | String | ✅ Yes | Customer's email address |\n| `payer_phone` | String | ✅ Yes | Customer's phone number |\n| `payer_ip` | String | ✅ Yes | Customer's IP address |\n| `return_url` | String | ✅ Yes | URL to which Customer should be returned after operation in third-party system |\n| `hash` | String | ✅ Yes | Special signature to validate your request to Payment Platform |"
+              },
+              "response": [
+                {
+                  "name": "200 OK",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"action\": \"SALE\",\n  \"result\": \"SUCCESS\",\n  \"status\": \"PENDING\",\n  \"order_id\": \"order-1234\",\n  \"trans_id\": \"66624eba-9e10-11ec-aa41-0242ac130002\",\n  \"trans_date\": \"2025-06-08T12:34:56Z\",\n  \"descriptor\": \"Customer Support Website\",\n  \"amount\": 100.99,\n  \"currency\": \"USD\",\n  \"crypto_address\": \"0xAbC1234Def5678...\",\n  \"crypto_network\": \"ERC20\"\n}"
+                    },
+                    "url": {
+                      "raw": "{{H2H_HOST}}/post",
+                      "host": [
+                        "{{H2H_HOST}}"
+                      ],
+                      "path": [
+                        "post"
+                      ]
+                    }
+                  },
+                  "_postman_previewlanguage": null,
+                  "header": null,
+                  "cookie": [],
+                  "body": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "PayOut",
+          "item": [
+            {
+              "name": "india upi p2p HPP PayOut",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      "const CryptoJS = require('crypto-js');",
+                      "",
+                      "const PASSWORD = pm.environment.get(\"PASSWORD\");",
+                      "",
+                      "const requestBody = JSON.parse(pm.request.body.raw);",
+                      "const orderId = crypto.randomUUID();",
+                      "",
+                      "const orderNumber = orderId;       ",
+                      "const orderAmount = requestBody.order.amount;",
+                      "const orderCurrency = requestBody.order.currency;",
+                      "const orderDescription = requestBody.order.description;",
+                      "",
+                      "const to_md5 = orderNumber + orderAmount + orderCurrency + orderDescription + PASSWORD;",
+                      "",
+                      "const md5Hash = CryptoJS.MD5(to_md5.toUpperCase()).toString();",
+                      "const sha1Hash = CryptoJS.SHA1(md5Hash);",
+                      "const hash = CryptoJS.enc.Hex.stringify(sha1Hash);",
+                      "pm.variables.set(\"computed_hash\", hash);",
+                      "pm.variables.set(\"number\", orderNumber);"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"merchant_key\": \"{{merchant_key}}\",\n  \"operation\": \"credit\",\n  \"methods\": [ \"fp-upi\" ],\n  \"order\": {\n    \"number\": \"{{number}}\",\n    \"amount\": \"1000.00\",\n    \"currency\": \"INR\",\n    \"description\": \"Payout to customer\"\n  },\n  \"payee\":{ \n    \"name\": \"John Doe\",\n    \"email\": \"test@gmail.com\" \n  },\n  \"cancel_url\": \"https://example.com/cancel\",\n  \"success_url\": \"https://example.com/success\",\n  \"hash\": \"{{computed_hash}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{HPP_HOST}}/api/v1/session",
+                  "host": [
+                    "{{HPP_HOST}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "session"
+                  ]
+                },
+                "description": "## 📥 Request Body\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `merchant_key` | String | ✅ Yes | Key for Merchant identification |\n| `operation` | String | ✅ Yes | Defines a payment transaction. Send the “credit” value so that the payment page for credit initiation will be shown to the customer. |\n| `methods` | Array | ✅ Yes | An array of payment methods. Limits the available methods on the Checkout page |\n| `order` | Object | ✅ Yes | Information about an order |\n| `order.number` | String | ✅ Yes | Order ID - is a merchant system ID that refers to particular payment attempt |\n| `order.amount` | String | ✅ Yes | Format depends on currency |\n| `order.currency` | String | ✅ Yes | Currency |\n| `order.description` | String | ✅ Yes | Product name |\n| `customer` | Object | ✅ Yes | Customer's information. Send an object if a payment method needs |\n| `customer.name` | String | ✅ Yes | Customer's name |\n| `customer.email` | String | ✅ Yes | Customer's email address |\n| `parameters` | Object | ✅ Yes | Extra-parameters required for specific payment method |\n| `parameters.fp-upi` | Object | ✅ Yes | Specific parameters block for the fp-upi payment method |\n| `parameters.fp-upi.account_name` | String | ⬅ Optional | Customer's name |\n| `parameters.fp-upi.account_number` | String | ⬅ Optional | Account Number - Customer's account number |\n| `parameters.fp-upi.ifsc_code` | String | ⬅ Optional | IFSC code |\n| `success_url` | String | ✅ Yes | URL to redirect the Customer in case of the successful payment |\n| `cancel_url` | String | ✅ Yes | URL to return Customer in case of a payment cancellation (“Close” button on the Checkout page) |\n| `hash` | String | ✅ Yes | Special signature to validate your request to Payment Platform Addition in Signature section |"
+              },
+              "response": [
+                {
+                  "name": "200 OK",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"redirect_url\": \"https://example.domain.com/auth/ZXlKMGVYQWlPaUpL...\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{HPP_HOST}}/api/v1/session",
+                      "host": [
+                        "{{HPP_HOST}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v1",
+                        "session"
+                      ]
+                    }
+                  },
+                  "_postman_previewlanguage": "",
+                  "header": [],
+                  "cookie": [
+                    {
+                      "expires": "Invalid Date",
+                      "domain": "",
+                      "path": ""
+                    }
+                  ],
+                  "body": ""
+                }
+              ]
+            },
+            {
+              "name": "india upi p2p H2H PayOut",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      "const CryptoJS = require('crypto-js');",
+                      "",
+                      "const PASSWORD = pm.environment.get(\"PASSWORD\");",
+                      "const orderId = crypto.randomUUID();",
+                      "",
+                      "const order_id = orderId;",
+                      "const order_amount = pm.request.body.urlencoded.get(\"order_amount\");",
+                      "const order_currency = pm.request.body.urlencoded.get(\"order_currency\");",
+                      "",
+                      "const to_md5 = order_id + order_amount + order_currency;",
+                      "",
+                      "const reversed = to_md5.split('').reverse().join('');",
+                      "const upper = reversed.toUpperCase() + PASSWORD;",
+                      "const hash = CryptoJS.MD5(upper).toString().toLowerCase();",
+                      "",
+                      "pm.environment.set(\"computed_hash\", hash);",
+                      "pm.environment.set(\"order_id\", order_id);"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "action",
+                      "value": "CREDIT2VIRTUAL",
+                      "type": "text",
+                      "uuid": "2a2a5571-5430-4188-b76b-ff1c6e07e0b8"
+                    },
+                    {
+                      "key": "client_key",
+                      "value": "{{merchant_key}}",
+                      "type": "text",
+                      "uuid": "6185324e-d737-457e-a0df-14c1266afed4"
+                    },
+                    {
+                      "key": "brand",
+                      "value": "fp-upi",
+                      "type": "text",
+                      "uuid": "81d70ee5-97e2-49db-a913-6e281015f352"
+                    },
+                    {
+                      "key": "order_id",
+                      "value": "{{order_id}}",
+                      "type": "text",
+                      "uuid": "448eb846-4684-4198-9fdf-74060d1b9f6c"
+                    },
+                    {
+                      "key": "order_amount",
+                      "value": "1000.00",
+                      "type": "text",
+                      "uuid": "875fca98-1ef4-42a3-bcc0-852695afcaea"
+                    },
+                    {
+                      "key": "order_currency",
+                      "value": "INR",
+                      "type": "text",
+                      "uuid": "1d4307bf-a549-4701-be25-c3aac4355292"
+                    },
+                    {
+                      "key": "order_description",
+                      "value": "Payout",
+                      "type": "text",
+                      "uuid": "278211d2-f046-46f3-89f3-6ca89730aa5c"
+                    },
+                    {
+                      "key": "identifier",
+                      "value": "payer@example.com",
+                      "type": "text",
+                      "uuid": "38837e8f-66db-431f-8b0c-442ff10a27e0"
+                    },
+                    {
+                      "key": "payee_first_name",
+                      "value": "John",
+                      "type": "text",
+                      "uuid": "6ae6b637-32af-4b6f-a717-2cef179d3e8f"
+                    },
+                    {
+                      "key": "payee_last_name",
+                      "value": "Doe",
+                      "type": "text",
+                      "uuid": "a4efe712-3bc6-4d2c-a381-6c3e63ec7d0b"
+                    },
+                    {
+                      "key": "payee_email",
+                      "value": "payer@example.com",
+                      "type": "text",
+                      "uuid": "4b868680-0cb4-4d55-8a9a-41c3be916134"
+                    },
+                    {
+                      "key": "payer_phone",
+                      "value": "+911234567890",
+                      "type": "text",
+                      "uuid": "fa2e4eb8-4946-4c24-990e-87498414f28f"
+                    },
+                    {
+                      "key": "payer_ip",
+                      "value": "192.167.1.1",
+                      "type": "text",
+                      "uuid": "b54c3001-f998-4b10-9ef4-135b02e05064"
+                    },
+                    {
+                      "key": "return_url",
+                      "value": "https://example.com/return",
+                      "type": "text",
+                      "uuid": "dbabfd7c-41b8-4f33-8a5b-84d7f377e613"
+                    },
+                    {
+                      "key": "parameters[account_name]",
+                      "value": "John Doe",
+                      "type": "text",
+                      "uuid": "78afae6d-7eae-4299-bff8-3a67b0b4c012"
+                    },
+                    {
+                      "key": "parameters[account_number]",
+                      "value": "1234567890",
+                      "type": "text",
+                      "uuid": "11dbd263-3bae-40cd-a034-4acb37e7fa30"
+                    },
+                    {
+                      "key": "parameters[ifsc_code]",
+                      "value": "HDFC0001234",
+                      "type": "text",
+                      "uuid": "389ac405-db8a-4f18-94ca-ed6de24b86c8"
+                    },
+                    {
+                      "key": "hash",
+                      "value": "{{computed_hash}}",
+                      "type": "text",
+                      "uuid": "aaf29a9b-01ac-42b7-827a-4a97f3babf67"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{H2H_HOST}}/post",
+                  "host": [
+                    "{{H2H_HOST}}"
+                  ],
+                  "path": [
+                    "post"
+                  ]
+                },
+                "description": "### 📥 Request Body\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `action` | String | ✅ Yes | Action to perform (=SALE) |\n| `client_key` | String | ✅ Yes | Unique client key (CLIENT_KEY) |\n| `brand` | String | ✅ Yes | Brand through which the transaction is performed |\n| `order_id` | String | ✅ Yes | Transaction ID in the Clients system |\n| `order_amount` | Number | ✅ Yes | The amount of the transaction |\n| `order_currency` | String | ✅ Yes | Currency |\n| `order_description` | String | ✅ Yes | Description of the transaction (product name) |\n| `identifier` | String | ✅ Yes | Extra parameter for transaction. It could be token, account information, additional descriptor etc. |\n| `payer_first_name` | String | ✅ Yes | Customer's first name |\n| `payer_last_name` | String | ✅ Yes | Customer's last name |\n| `payer_email` | String | ✅ Yes | Customer's email address |\n| `payer_phone` | String | ✅ Yes | Customer's phone number |\n| `payer_ip` | String | ✅ Yes | Customer's IP address |\n| `return_url` | String | ✅ Yes | URL to which Customer should be returned after operation in third-party system |\n| `hash` | String | ✅ Yes | Special signature to validate your request to Payment Platform |"
+              },
+              "response": [
+                {
+                  "name": "200 OK",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"action\": \"CREDIT2VIRTUAL\",\n  \"result\": \"SUCCESS\",\n  \"status\": \"SETTLED\",\n  \"order_id\": 1613117050,\n  \"trans_id\": \"e5098d62-6d08-11eb-9da3-0242ac120013\",\n  \"trans_date\": \"2021-02-12 08:04:15\",\n  \"amount\": \"0.19\",\n  \"currency\": \"USD\",\n  \"decline_reason\": \"Declined by processing\"\n}"
+                    },
+                    "url": {
+                      "raw": "{{H2H_HOST}}/post",
+                      "host": [
+                        "{{H2H_HOST}}"
+                      ],
+                      "path": [
+                        "post"
+                      ]
+                    }
+                  },
+                  "_postman_previewlanguage": null,
+                  "header": null,
+                  "cookie": [],
+                  "body": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Havale",
+      "item": [
+        {
+          "name": "PayIn",
+          "item": [
+            {
+              "name": "havale HPP PayIn",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      "const CryptoJS = require('crypto-js');",
+                      "",
+                      "const PASSWORD = pm.environment.get(\"PASSWORD\");",
+                      "",
+                      "const requestBody = JSON.parse(pm.request.body.raw);",
+                      "const orderId = crypto.randomUUID();",
+                      "",
+                      "const orderNumber = orderId;       ",
+                      "const orderAmount = requestBody.order.amount;",
+                      "const orderCurrency = requestBody.order.currency;",
+                      "const orderDescription = requestBody.order.description;",
+                      "",
+                      "const to_md5 = orderNumber + orderAmount + orderCurrency + orderDescription + PASSWORD;",
+                      "",
+                      "const md5Hash = CryptoJS.MD5(to_md5.toUpperCase()).toString();",
+                      "const sha1Hash = CryptoJS.SHA1(md5Hash);",
+                      "const hash = CryptoJS.enc.Hex.stringify(sha1Hash);",
+                      "pm.variables.set(\"computed_hash\", hash);",
+                      "pm.variables.set(\"number\", orderNumber);"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"merchant_key\": \"{{merchant_key}}\",\n  \"operation\": \"purchase\",\n  \"methods\": [\n    \"havalein\"\n  ],\n  \"order\": {\n    \"number\": \"{{number}}\",\n    \"amount\": \"5000.00\",\n    \"currency\": \"TRY\",\n    \"description\": \"Test payment\"\n  },\n  \"cancel_url\": \"https://example.com/cancel\",\n  \"success_url\": \"https://example.com/success\",\n  \"customer\": {\n    \"name\": \"John Doe\",\n    \"email\": \"test@gmail.com\"\n  },\n  \"hash\": \"{{computed_hash}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{HPP_HOST}}/api/v1/session",
+                  "host": [
+                    "{{HPP_HOST}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "session"
+                  ]
+                },
+                "description": "## 📥 Request Body\n\nMinimum amount PayIn 1000 TRY\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `merchant_key` | String | ✅ Yes | Key for Merchant identification |\n| `operation` | String | ✅ Yes | Defines a payment transaction |\n| `methods` | Array | ✅ Yes | Array of payment methods |\n| `order` | Object | ✅ Yes | Object containing the transaction order details |\n| `order.number` | String | ✅ Yes | Order ID |\n| `order.amount` | String | ✅ Yes | The amount of the transaction |\n| `order.currency` | String | ✅ Yes | Three-letter currency code |\n| `order.description` | String | ✅ Yes | Product name or order description |\n| `cancel_url` | String | ✅ Yes | URL to return the Customer in case of payment cancellation |\n| `success_url` | String | ✅ Yes | URL to redirect the Customer after successful payment |\n| `customer` | Object | ✅ Yes | Object containing customer personal information |\n| `customer.name` | String | ✅ Yes | Customer's name |\n| `customer.email` | String | ✅ Yes | Customer's email address |\n| `hash` | String | ✅ Yes | Special signature to validate your request |"
+              },
+              "response": [
+                {
+                  "name": "200 OK",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"redirect_url\": \"https://example.domain.com/auth/ZXlKMGVYQWlPaUpL...\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{HPP_HOST}}/api/v1/session",
+                      "host": [
+                        "{{HPP_HOST}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v1",
+                        "session"
+                      ]
+                    }
+                  },
+                  "_postman_previewlanguage": null,
+                  "header": null,
+                  "cookie": [],
+                  "body": null
+                }
+              ]
+            },
+            {
+              "name": "havale H2H PayIn",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      "const CryptoJS = require('crypto-js');",
+                      "",
+                      "const PASSWORD = pm.environment.get(\"PASSWORD\");",
+                      "const orderId = crypto.randomUUID();",
+                      "",
+                      "const identifier = pm.request.body.urlencoded.get(\"identifier\");",
+                      "const order_id = orderId;",
+                      "const order_amount = pm.request.body.urlencoded.get(\"order_amount\");",
+                      "const order_currency = pm.request.body.urlencoded.get(\"order_currency\");",
+                      "",
+                      "const to_md5 = identifier + order_id + order_amount + order_currency + PASSWORD;",
+                      "",
+                      "const reversed = to_md5.split('').reverse().join('');",
+                      "const upper = reversed.toUpperCase();",
+                      "const hash = CryptoJS.MD5(upper).toString().toLowerCase();",
+                      "",
+                      "pm.environment.set(\"computed_hash\", hash);",
+                      "pm.environment.set(\"order_id\", order_id);",
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "action",
+                      "value": "SALE",
+                      "type": "text",
+                      "uuid": "2a2a5571-5430-4188-b76b-ff1c6e07e0b8"
+                    },
+                    {
+                      "key": "client_key",
+                      "value": "{{merchant_key}}",
+                      "type": "text",
+                      "uuid": "6185324e-d737-457e-a0df-14c1266afed4"
+                    },
+                    {
+                      "key": "brand",
+                      "value": "havalein",
+                      "type": "text",
+                      "uuid": "81d70ee5-97e2-49db-a913-6e281015f352"
+                    },
+                    {
+                      "key": "order_id",
+                      "value": "{{order_id}}",
+                      "type": "text",
+                      "uuid": "448eb846-4684-4198-9fdf-74060d1b9f6c"
+                    },
+                    {
+                      "key": "order_amount",
+                      "value": "1000.00",
+                      "type": "text",
+                      "uuid": "875fca98-1ef4-42a3-bcc0-852695afcaea"
+                    },
+                    {
+                      "key": "order_currency",
+                      "value": "TRY",
+                      "type": "text",
+                      "uuid": "1d4307bf-a549-4701-be25-c3aac4355292"
+                    },
+                    {
+                      "key": "order_description",
+                      "value": "Test payment",
+                      "type": "text",
+                      "uuid": "278211d2-f046-46f3-89f3-6ca89730aa5c"
+                    },
+                    {
+                      "key": "identifier",
+                      "value": "payer@example.com",
+                      "type": "text",
+                      "uuid": "38837e8f-66db-431f-8b0c-442ff10a27e0"
+                    },
+                    {
+                      "key": "payee_first_name",
+                      "value": "John",
+                      "type": "text",
+                      "uuid": "6ae6b637-32af-4b6f-a717-2cef179d3e8f"
+                    },
+                    {
+                      "key": "payee_last_name",
+                      "value": "Doe",
+                      "type": "text",
+                      "uuid": "a4efe712-3bc6-4d2c-a381-6c3e63ec7d0b"
+                    },
+                    {
+                      "key": "payee_email",
+                      "value": "payer@example.com",
+                      "type": "text",
+                      "uuid": "4b868680-0cb4-4d55-8a9a-41c3be916134"
+                    },
+                    {
+                      "key": "payer_phone",
+                      "value": "+911234567890",
+                      "type": "text",
+                      "uuid": "fa2e4eb8-4946-4c24-990e-87498414f28f"
+                    },
+                    {
+                      "key": "payer_ip",
+                      "value": "192.167.1.1",
+                      "type": "text",
+                      "uuid": "b54c3001-f998-4b10-9ef4-135b02e05064"
+                    },
+                    {
+                      "key": "return_url",
+                      "value": "https://example.com/return",
+                      "type": "text",
+                      "uuid": "60179392-e77b-4b21-931e-d09f8270a435"
+                    },
+                    {
+                      "key": "parameters[user_id]",
+                      "value": "MERCHANT_USER_123",
+                      "type": "text",
+                      "uuid": "68b9bb36-470c-4791-9a97-bcdda0226bae"
+                    },
+                    {
+                      "key": "hash",
+                      "value": "{{computed_hash}}",
+                      "type": "text",
+                      "uuid": "aaf29a9b-01ac-42b7-827a-4a97f3babf67"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{H2H_HOST}}/post",
+                  "host": [
+                    "{{H2H_HOST}}"
+                  ],
+                  "path": [
+                    "post"
+                  ]
+                },
+                "description": "### 📥 Request Body\n\nMinimum amount PayIn 1000 TRY\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `action` | String | ✅ Yes | Action to perform (=SALE) |\n| `client_key` | String | ✅ Yes | Unique client key (CLIENT_KEY) |\n| `brand` | String | ✅ Yes | Brand through which the transaction is performed |\n| `order_id` | String | ✅ Yes | Transaction ID in the Clients system |\n| `order_amount` | Number | ✅ Yes | The amount of the transaction |\n| `order_currency` | String | ✅ Yes | Currency |\n| `order_description` | String | ✅ Yes | Description of the transaction (product name) |\n| `identifier` | String | ✅ Yes | Extra parameter for transaction. It could be token, account information, additional descriptor etc. |\n| `payer_first_name` | String | ✅ Yes | Customer's first name |\n| `payer_last_name` | String | ✅ Yes | Customer's last name |\n| `payer_email` | String | ✅ Yes | Customer's email address |\n| `payer_phone` | String | ✅ Yes | Customer's phone number |\n| `payer_ip` | String | ✅ Yes | IP-address of the Customer. Both versions, IPv4 and IPv6, can be used. If you are sending IPv6, make sure the payment provider that processes the payments supports it. |\n| `return_url` | String | ✅ Yes | URL to which Customer should be returned after operation in third-party system |\n| `parameters[user_id]` | String | ✅ Yes | Unique user identifier in the merchant's system |\n| `hash` | String | ✅ Yes | Special signature to validate your request to Payment Platform |"
+              },
+              "response": [
+                {
+                  "name": "200 OK",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"action\": \"SALE\",\n  \"result\": \"SUCCESS\",\n  \"status\": \"PENDING\",\n  \"order_id\": \"order-1234\",\n  \"trans_id\": \"66624eba-9e10-11ec-aa41-0242ac130002\",\n  \"trans_date\": \"2025-06-08T12:34:56Z\",\n  \"descriptor\": \"Customer Support Website\",\n  \"amount\": 100.99,\n  \"currency\": \"USD\",\n  \"crypto_address\": \"0xAbC1234Def5678...\",\n  \"crypto_network\": \"ERC20\"\n}"
+                    },
+                    "url": {
+                      "raw": "{{H2H_HOST}}/post",
+                      "host": [
+                        "{{H2H_HOST}}"
+                      ],
+                      "path": [
+                        "post"
+                      ]
+                    }
+                  },
+                  "_postman_previewlanguage": "",
+                  "header": [],
+                  "cookie": [
+                    {
+                      "expires": "Invalid Date",
+                      "domain": "",
+                      "path": ""
+                    }
+                  ],
+                  "body": ""
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "PayOut",
+          "item": [
+            {
+              "name": "havale HPP PayOut",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      "const CryptoJS = require('crypto-js');",
+                      "",
+                      "const PASSWORD = pm.environment.get(\"PASSWORD\");",
+                      "",
+                      "const requestBody = JSON.parse(pm.request.body.raw);",
+                      "const orderId = crypto.randomUUID();",
+                      "",
+                      "const orderNumber = orderId;       ",
+                      "const orderAmount = requestBody.order.amount;",
+                      "const orderCurrency = requestBody.order.currency;",
+                      "const orderDescription = requestBody.order.description;",
+                      "",
+                      "const to_md5 = orderNumber + orderAmount + orderCurrency + orderDescription + PASSWORD;",
+                      "",
+                      "const md5Hash = CryptoJS.MD5(to_md5.toUpperCase()).toString();",
+                      "const sha1Hash = CryptoJS.SHA1(md5Hash);",
+                      "const hash = CryptoJS.enc.Hex.stringify(sha1Hash);",
+                      "pm.variables.set(\"computed_hash\", hash);",
+                      "pm.variables.set(\"number\", orderNumber);"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"merchant_key\": \"{{merchant_key}}\",\n    \"operation\": \"credit\",\n    \"methods\": [\"havaleout\"],\n    \"order\": {\n        \"number\": \"{{number}}\",\n        \"amount\": \"5000.00\",\n        \"currency\": \"TRY\",\n        \"description\": \"Payout to customer\"\n    },\n    \"success_url\": \"https://www.google.com/\",\n    \"cancel_url\": \"https://www.google.com/\",\n    \"hash\": \"{{computed_hash}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{HPP_HOST}}/api/v1/session",
+                  "host": [
+                    "{{HPP_HOST}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "session"
+                  ]
+                },
+                "description": "## 📥 Request Body\n\nMinimum amount PayOut 5000 TRY\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `merchant_key` | String | ✅ Yes | Key for Merchant identification |\n| `operation` | String | ✅ Yes | Send the “credit” value so that the payment page for credit initiation will be shown to the customer |\n| `methods` | Array | ✅ Yes | An array of payment methods. Limits the available methods on the Checkout page |\n| `order` | Object | ✅ Yes | Object containing the transaction order details |\n| `order.number` | String | ✅ Yes | Unique transaction ID in the Client's system (Order ID) |\n| `order.amount` | String | ✅ Yes | Amount of the transaction in the format specified for the currency |\n| `order.currency` | String | ✅ Yes | Currency. 3 characters for fiat currencies |\n| `order.description` | String | ✅ Yes | Product name or order description (String up to 1024 characters) |\n| `payee` | Object | ✅ Yes | Payee's information. Specify additional information about Payee for transfer or credit operation if it is required by payment provider. |\n| `payee.name` | String | ✅ Yes | Customer's name |\n| `success_url` | String | ✅ Yes | URL to redirect the Customer in case of the successful payment |\n| `cancel_url` | String | ✅ Yes | URL to return Customer in case of a payment cancellation (“Close” button on the Checkout page) |\n| `hash` | String | ✅ Yes | Special signature to validate your request to Payment Platform Addition in Signature section |\n| `parameters` | Object | ✅ Yes | Extra-parameters required for specific payment method |\n| `parameters.havaleout` | Object | ✅ Yes | Specific parameters block for the havaleout payment method |\n| `parameters.havaleout.user_id` | String | ✅ Yes | User ID |\n| `parameters.havaleout.bankName` | String | ✅ Yes | Name of the bank |\n| `parameters.havaleout.bankAccount` | String | ✅ Yes | IBAN |"
+              },
+              "response": [
+                {
+                  "name": "200 OK",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"redirect_url\": \"https://example.domain.com/auth/ZXlKMGVYQWlPaUpL...\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{HPP_HOST}}/api/v1/session",
+                      "host": [
+                        "{{HPP_HOST}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v1",
+                        "session"
+                      ]
+                    }
+                  },
+                  "_postman_previewlanguage": "",
+                  "header": [],
+                  "cookie": [
+                    {
+                      "expires": "Invalid Date",
+                      "domain": "",
+                      "path": ""
+                    }
+                  ],
+                  "body": ""
+                }
+              ]
+            },
+            {
+              "name": "havale H2H PayOut",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      "const CryptoJS = require('crypto-js');",
+                      "",
+                      "const PASSWORD = pm.environment.get(\"PASSWORD\");",
+                      "const orderId = crypto.randomUUID();",
+                      "",
+                      "const order_id = orderId;",
+                      "const order_amount = pm.request.body.urlencoded.get(\"order_amount\");",
+                      "const order_currency = pm.request.body.urlencoded.get(\"order_currency\");",
+                      "",
+                      "const to_md5 = order_id + order_amount + order_currency;",
+                      "",
+                      "const reversed = to_md5.split('').reverse().join('');",
+                      "const upper = reversed.toUpperCase() + PASSWORD;",
+                      "const hash = CryptoJS.MD5(upper).toString().toLowerCase();",
+                      "",
+                      "pm.environment.set(\"computed_hash\", hash);",
+                      "pm.environment.set(\"order_id\", order_id);"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "action",
+                      "value": "CREDIT2VIRTUAL",
+                      "type": "text",
+                      "uuid": "2a2a5571-5430-4188-b76b-ff1c6e07e0b8"
+                    },
+                    {
+                      "key": "client_key",
+                      "value": "{{merchant_key}}",
+                      "type": "text",
+                      "uuid": "6185324e-d737-457e-a0df-14c1266afed4"
+                    },
+                    {
+                      "key": "brand",
+                      "value": "havaleout",
+                      "type": "text",
+                      "uuid": "81d70ee5-97e2-49db-a913-6e281015f352"
+                    },
+                    {
+                      "key": "order_id",
+                      "value": "{{order_id}}",
+                      "type": "text",
+                      "uuid": "448eb846-4684-4198-9fdf-74060d1b9f6c"
+                    },
+                    {
+                      "key": "order_amount",
+                      "value": "1000.00",
+                      "type": "text",
+                      "uuid": "875fca98-1ef4-42a3-bcc0-852695afcaea"
+                    },
+                    {
+                      "key": "order_currency",
+                      "value": "TRY",
+                      "type": "text",
+                      "uuid": "1d4307bf-a549-4701-be25-c3aac4355292"
+                    },
+                    {
+                      "key": "order_description",
+                      "value": "Payout",
+                      "type": "text",
+                      "uuid": "278211d2-f046-46f3-89f3-6ca89730aa5c"
+                    },
+                    {
+                      "key": "identifier",
+                      "value": "payer@example.com",
+                      "type": "text",
+                      "uuid": "38837e8f-66db-431f-8b0c-442ff10a27e0"
+                    },
+                    {
+                      "key": "payee_first_name",
+                      "value": "John",
+                      "type": "text",
+                      "uuid": "6ae6b637-32af-4b6f-a717-2cef179d3e8f"
+                    },
+                    {
+                      "key": "payee_last_name",
+                      "value": "Doe",
+                      "type": "text",
+                      "uuid": "a4efe712-3bc6-4d2c-a381-6c3e63ec7d0b"
+                    },
+                    {
+                      "key": "parameters[user_id]",
+                      "value": "13535",
+                      "type": "text",
+                      "uuid": "78afae6d-7eae-4299-bff8-3a67b0b4c012"
+                    },
+                    {
+                      "key": "parameters[bankName]",
+                      "value": "Akbank",
+                      "type": "text",
+                      "uuid": "11dbd263-3bae-40cd-a034-4acb37e7fa30"
+                    },
+                    {
+                      "key": "parameters[bankAccount]",
+                      "value": "TR600001100000001125451110",
+                      "type": "text",
+                      "uuid": "389ac405-db8a-4f18-94ca-ed6de24b86c8"
+                    },
+                    {
+                      "key": "hash",
+                      "value": "{{computed_hash}}",
+                      "type": "text",
+                      "uuid": "aaf29a9b-01ac-42b7-827a-4a97f3babf67"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{H2H_HOST}}/post",
+                  "host": [
+                    "{{H2H_HOST}}"
+                  ],
+                  "path": [
+                    "post"
+                  ]
+                },
+                "description": "### 📥 Request Body\n\nMinimum amount PayOut 5000 TRY\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `action` | String | ✅ Yes | Action to perform(=CREDIT2VIRTUAL) |\n| `client_key` | String | ✅ Yes | Unique client key (CLIENT_KEY) |\n| `order_id` | String | ✅ Yes | Order ID in the Clients system |\n| `order_amount` | Number | ✅ Yes | The amount of the transaction |\n| `order_currency` | String | ✅ Yes | Currency |\n| `order_description` | String | ✅ Yes | Description of the transaction (product name) |\n| `brand` | String | ✅ Yes | Brand through which the transaction is performed |\n| `payee_first_name` | String | ⬅ Optional | Customer's name |\n| `payee_last_name` | String | ⬅ Optional | Customer's surname |\n| `parameters[user_id]` | String | ⬅ Optional | Brand-specific parameter containing the user ID on the merchant side |\n| `parameters[bankName]` | String | ✅ Yes | Brand-specific parameter containing the name of the recipient's bank |\n| `parameters[bankAccount]` | String | ✅ Yes | Brand-specific parameter containing the IBAN or bank account number of the recipient |\n| `hash` | String | ✅ Yes | Special signature to validate your request to Payment Platform |"
+              },
+              "response": [
+                {
+                  "name": "200 OK",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"action\": \"CREDIT2VIRTUAL\",\n  \"result\": \"SUCCESS\",\n  \"status\": \"SETTLED\",\n  \"order_id\": 1613117050,\n  \"trans_id\": \"e5098d62-6d08-11eb-9da3-0242ac120013\",\n  \"trans_date\": \"2021-02-12 08:04:15\",\n  \"amount\": \"0.19\",\n  \"currency\": \"USD\",\n  \"decline_reason\": \"Declined by processing\"\n}"
+                    },
+                    "url": {
+                      "raw": "{{H2H_HOST}}/post",
+                      "host": [
+                        "{{H2H_HOST}}"
+                      ],
+                      "path": [
+                        "post"
+                      ]
+                    }
+                  },
+                  "_postman_previewlanguage": null,
+                  "header": null,
+                  "cookie": [],
+                  "body": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Havale Light",
+      "item": [
+        {
+          "name": "PayIn",
+          "item": [
+            {
+              "name": "havale light HPP PayIn",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      "const CryptoJS = require('crypto-js');",
+                      "",
+                      "const PASSWORD = pm.environment.get(\"PASSWORD\");",
+                      "",
+                      "const requestBody = JSON.parse(pm.request.body.raw);",
+                      "const orderId = crypto.randomUUID();",
+                      "",
+                      "const orderNumber = orderId;       ",
+                      "const orderAmount = requestBody.order.amount;",
+                      "const orderCurrency = requestBody.order.currency;",
+                      "const orderDescription = requestBody.order.description;",
+                      "",
+                      "const to_md5 = orderNumber + orderAmount + orderCurrency + orderDescription + PASSWORD;",
+                      "",
+                      "const md5Hash = CryptoJS.MD5(to_md5.toUpperCase()).toString();",
+                      "const sha1Hash = CryptoJS.SHA1(md5Hash);",
+                      "const hash = CryptoJS.enc.Hex.stringify(sha1Hash);",
+                      "pm.variables.set(\"computed_hash\", hash);",
+                      "pm.variables.set(\"number\", orderNumber);"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"merchant_key\": \"{{merchant_key}}\",\n  \"operation\": \"purchase\",\n  \"methods\": [\"havale-light\"],\n  \"order\": {\n    \"number\": \"{{number}}\",\n    \"amount\": \"1000.00\",\n    \"currency\": \"TRY\",\n    \"description\": \"Test payment\"\n  },\n  \"billing_address\": {\n    \"phone\": \"+915551234560\"\n  },\n  \"success_url\": \"https://example.com/success\",\n  \"cancel_url\": \"https://example.com/cancel\",\n  \"hash\": \"{{computed_hash}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{HPP_HOST}}/api/v1/session",
+                  "host": [
+                    "{{HPP_HOST}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "session"
+                  ]
+                },
+                "description": "## 📥 Request Body\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `merchant_key` | String | ✅ Yes | Key for Merchant identification |\n| `operation` | String | ✅ Yes | Send the “purchase” value so that the payment page for sale initiation will be shown to the customer |\n| `methods` | Array | ✅ Yes | An array of payment methods. Limits the available methods on the Checkout page |\n| `order` | Object | ✅ Yes | Information about an order |\n| `order.number` | String | ✅ Yes | Order ID - is a merchant system ID that refers to particular payment attempt |\n| `order.amount` | String | ✅ Yes | Format depends on currency |\n| `order.currency` | String | ✅ Yes | Currency |\n| `order.description` | String | ✅ Yes | Product name |\n| `customer` | Object | ✅ Yes | Customer's information. Send an object if a payment method needs |\n| `customer.name` | String | ✅ Yes | Customer's name |\n| `customer.email` | String | ✅ Yes | Customer's email address |\n| `billing_address` | Object | ✅ Yes | The billing address of the customer |\n| `billing_address.phone` | String | ✅ Yes | Customer's phone number |\n| `success_url` | String | ✅ Yes | URL to redirect the Customer in case of the successful payment |\n| `cancel_url` | String | ✅ Yes | URL to return Customer in case of a payment cancellation (“Close” button on the Checkout page) |\n| `hash` | String | ✅ Yes | Special signature to validate your request to Payment Platform Addition in Signature section |"
+              },
+              "response": [
+                {
+                  "name": "200 OK",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"redirect_url\": \"https://example.domain.com/auth/ZXlKMGVYQWlPaUpL...\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{HPP_HOST}}/api/v1/session",
+                      "host": [
+                        "{{HPP_HOST}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v1",
+                        "session"
+                      ]
+                    }
+                  },
+                  "_postman_previewlanguage": null,
+                  "header": null,
+                  "cookie": [],
+                  "body": null
+                }
+              ]
+            },
+            {
+              "name": "havale light H2H PayIn",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "const CryptoJS = require('crypto-js');",
+                      "",
+                      "const PASSWORD = pm.environment.get(\"PASSWORD\");",
+                      "const orderId = crypto.randomUUID();",
+                      "",
+                      "const identifier = pm.request.body.urlencoded.get(\"identifier\");",
+                      "const order_id = orderId;",
+                      "const order_amount = pm.request.body.urlencoded.get(\"order_amount\");",
+                      "const order_currency = pm.request.body.urlencoded.get(\"order_currency\");",
+                      "",
+                      "const to_md5 = identifier + order_id + order_amount + order_currency + PASSWORD;",
+                      "",
+                      "const reversed = to_md5.split('').reverse().join('');",
+                      "const upper = reversed.toUpperCase();",
+                      "const hash = CryptoJS.MD5(upper).toString().toLowerCase();",
+                      "",
+                      "pm.environment.set(\"computed_hash\", hash);",
+                      "pm.environment.set(\"order_id\", order_id);",
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "action",
+                      "value": "SALE",
+                      "type": "text",
+                      "uuid": "2a2a5571-5430-4188-b76b-ff1c6e07e0b8"
+                    },
+                    {
+                      "key": "client_key",
+                      "value": "{{merchant_key}}",
+                      "type": "text",
+                      "uuid": "6185324e-d737-457e-a0df-14c1266afed4"
+                    },
+                    {
+                      "key": "brand",
+                      "value": "havale-light",
+                      "type": "text",
+                      "uuid": "81d70ee5-97e2-49db-a913-6e281015f352"
+                    },
+                    {
+                      "key": "order_id",
+                      "value": "{{order_id}}",
+                      "type": "text",
+                      "uuid": "448eb846-4684-4198-9fdf-74060d1b9f6c"
+                    },
+                    {
+                      "key": "order_amount",
+                      "value": "1000.00",
+                      "type": "text",
+                      "uuid": "875fca98-1ef4-42a3-bcc0-852695afcaea"
+                    },
+                    {
+                      "key": "order_currency",
+                      "value": "TRY",
+                      "type": "text",
+                      "uuid": "1d4307bf-a549-4701-be25-c3aac4355292"
+                    },
+                    {
+                      "key": "order_description",
+                      "value": "Test payment",
+                      "type": "text",
+                      "uuid": "278211d2-f046-46f3-89f3-6ca89730aa5c"
+                    },
+                    {
+                      "key": "identifier",
+                      "value": "payer@example.com",
+                      "type": "text",
+                      "uuid": "38837e8f-66db-431f-8b0c-442ff10a27e0"
+                    },
+                    {
+                      "key": "payee_first_name",
+                      "value": "John",
+                      "type": "text",
+                      "uuid": "6ae6b637-32af-4b6f-a717-2cef179d3e8f"
+                    },
+                    {
+                      "key": "payee_last_name",
+                      "value": "Doe",
+                      "type": "text",
+                      "uuid": "a4efe712-3bc6-4d2c-a381-6c3e63ec7d0b"
+                    },
+                    {
+                      "key": "payee_email",
+                      "value": "payer@example.com",
+                      "type": "text",
+                      "uuid": "4b868680-0cb4-4d55-8a9a-41c3be916134"
+                    },
+                    {
+                      "key": "payer_phone",
+                      "value": "+911234567890",
+                      "type": "text",
+                      "uuid": "fa2e4eb8-4946-4c24-990e-87498414f28f"
+                    },
+                    {
+                      "key": "payer_ip",
+                      "value": "192.167.1.1",
+                      "type": "text",
+                      "uuid": "b54c3001-f998-4b10-9ef4-135b02e05064"
+                    },
+                    {
+                      "key": "return_url",
+                      "value": "https://example.com/return",
+                      "type": "text",
+                      "uuid": "60179392-e77b-4b21-931e-d09f8270a435"
+                    },
+                    {
+                      "key": "hash",
+                      "value": "{{computed_hash}}",
+                      "type": "text",
+                      "uuid": "aaf29a9b-01ac-42b7-827a-4a97f3babf67"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{H2H_HOST}}/post",
+                  "host": [
+                    "{{H2H_HOST}}"
+                  ],
+                  "path": [
+                    "post"
+                  ]
+                },
+                "description": "### 📥 Request Body\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `action` | String | ✅ Yes | Action to perform (=SALE) |\n| `client_key` | String | ✅ Yes | Unique client key (CLIENT_KEY) |\n| `brand` | String | ✅ Yes | Brand through which the transaction is performed |\n| `order_id` | String | ✅ Yes | Transaction ID in the Clients system |\n| `order_amount` | Number | ✅ Yes | Format depends on currency |\n| `order_currency` | String | ✅ Yes | Currency |\n| `order_description` | String | ✅ Yes | Description of the transaction (product name) |\n| `identifier` | String | ✅ Yes | Extra parameter for transaction. It could be token, account information, additional descriptor etc. |\n| `payer_first_name` | String | ✅ Yes | Customer's first name |\n| `payer_last_name` | String | ✅ Yes | Customer's last name |\n| `payer_email` | String | ✅ Yes | Customer's email address |\n| `payer_phone` | String | ✅ Yes | Customer's phone number |\n| `payer_ip` | String | ✅ Yes | Customer's IP address |\n| `return_url` | String | ✅ Yes | URL to which Customer should be returned after operation in third-party system |\n| `hash` | String | ✅ Yes | Special signature to validate your request to Payment Platform |"
+              },
+              "response": [
+                {
+                  "name": "200 OK",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"action\": \"SALE\",\n  \"result\": \"SUCCESS\",\n  \"status\": \"PENDING\",\n  \"order_id\": \"order-1234\",\n  \"trans_id\": \"66624eba-9e10-11ec-aa41-0242ac130002\",\n  \"trans_date\": \"2025-06-08T12:34:56Z\",\n  \"descriptor\": \"Customer Support Website\",\n  \"amount\": 100.99,\n  \"currency\": \"USD\",\n  \"crypto_address\": \"0xAbC1234Def5678...\",\n  \"crypto_network\": \"ERC20\"\n}"
+                    },
+                    "url": {
+                      "raw": "{{H2H_HOST}}/post",
+                      "host": [
+                        "{{H2H_HOST}}"
+                      ],
+                      "path": [
+                        "post"
+                      ]
+                    }
+                  },
+                  "_postman_previewlanguage": "",
+                  "header": [],
+                  "cookie": [
+                    {
+                      "expires": "Invalid Date",
+                      "domain": "",
+                      "path": ""
+                    }
+                  ],
+                  "body": ""
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "PayOut",
+          "item": [
+            {
+              "name": "havale light HPP PayOut",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      "const CryptoJS = require('crypto-js');",
+                      "",
+                      "const PASSWORD = pm.environment.get(\"PASSWORD\");",
+                      "",
+                      "const requestBody = JSON.parse(pm.request.body.raw);",
+                      "const orderId = crypto.randomUUID();",
+                      "",
+                      "const orderNumber = orderId;       ",
+                      "const orderAmount = requestBody.order.amount;",
+                      "const orderCurrency = requestBody.order.currency;",
+                      "const orderDescription = requestBody.order.description;",
+                      "",
+                      "const to_md5 = orderNumber + orderAmount + orderCurrency + orderDescription + PASSWORD;",
+                      "",
+                      "const md5Hash = CryptoJS.MD5(to_md5.toUpperCase()).toString();",
+                      "const sha1Hash = CryptoJS.SHA1(md5Hash);",
+                      "const hash = CryptoJS.enc.Hex.stringify(sha1Hash);",
+                      "pm.variables.set(\"computed_hash\", hash);",
+                      "pm.variables.set(\"number\", orderNumber);"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"merchant_key\": \"{{merchant_key}}\",\n    \"operation\": \"credit\",\n    \"methods\": [\"havale-light\"],\n    \"order\": {\n        \"number\": \"{{number}}\",\n        \"amount\": \"10000.00\",\n        \"currency\": \"TRY\",\n        \"description\": \"Payout to customer\"\n    },\n    \"success_url\": \"https://merchant-site.com/success\",\n    \"cancel_url\": \"https://merchant-site.com/cancel\",\n    \"hash\": \"{{computed_hash}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{HPP_HOST}}/api/v1/session",
+                  "host": [
+                    "{{HPP_HOST}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "session"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "CARD",
+      "item": [
+        {
+          "name": "PayOut",
+          "item": [
+            {
+              "name": "CARD H2H PayOut",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      "const CryptoJS = require('crypto-js');",
+                      "",
+                      "const orderId = crypto.randomUUID();",
+                      "const PASSWORD = pm.environment.get(\"PASSWORD\");",
+                      "const cardNumber = pm.request.body.urlencoded.get(\"card_number\");",
+                      "",
+                      "const cardPart = cardNumber.substring(0, 6) + cardNumber.slice(-4);",
+                      "const source = PASSWORD + cardPart.split('').reverse().join('');",
+                      "const upper = source.toUpperCase();",
+                      "const hash = CryptoJS.MD5(upper).toString();",
+                      "",
+                      "pm.environment.set(\"computed_hash\", hash);",
+                      "pm.environment.set(\"order_id\", orderId);"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "action",
+                      "value": "CREDIT2CARD",
+                      "type": "text",
+                      "uuid": "2a2a5571-5430-4188-b76b-ff1c6e07e0b8"
+                    },
+                    {
+                      "key": "client_key",
+                      "value": "{{merchant_key}}",
+                      "type": "text",
+                      "uuid": "6185324e-d737-457e-a0df-14c1266afed4"
+                    },
+                    {
+                      "key": "order_id",
+                      "value": "{{order_id}}",
+                      "type": "text",
+                      "uuid": "448eb846-4684-4198-9fdf-74060d1b9f6c"
+                    },
+                    {
+                      "key": "order_amount",
+                      "value": "10.00",
+                      "type": "text",
+                      "uuid": "875fca98-1ef4-42a3-bcc0-852695afcaea"
+                    },
+                    {
+                      "key": "order_currency",
+                      "value": "USD",
+                      "type": "text",
+                      "uuid": "1d4307bf-a549-4701-be25-c3aac4355292"
+                    },
+                    {
+                      "key": "order_description",
+                      "value": "Payout description",
+                      "type": "text",
+                      "uuid": "278211d2-f046-46f3-89f3-6ca89730aa5c"
+                    },
+                    {
+                      "key": "card_number",
+                      "value": "4111111111111111",
+                      "type": "text",
+                      "uuid": "0dc8000d-8376-4a13-8dab-1dedeea49228"
+                    },
+                    {
+                      "key": "payee_first_name",
+                      "value": "John",
+                      "type": "text",
+                      "uuid": "6ae6b637-32af-4b6f-a717-2cef179d3e8f"
+                    },
+                    {
+                      "key": "payee_last_name",
+                      "value": "Doe",
+                      "type": "text",
+                      "uuid": "a4efe712-3bc6-4d2c-a381-6c3e63ec7d0b"
+                    },
+                    {
+                      "key": "payee_email",
+                      "value": "test@test.com",
+                      "type": "text",
+                      "uuid": "4b868680-0cb4-4d55-8a9a-41c3be916134"
+                    },
+                    {
+                      "key": "payer_ip",
+                      "value": "192.167.1.1",
+                      "type": "text",
+                      "uuid": "b54c3001-f998-4b10-9ef4-135b02e05064"
+                    },
+                    {
+                      "key": "hash",
+                      "value": "{{computed_hash}}",
+                      "type": "text",
+                      "uuid": "aaf29a9b-01ac-42b7-827a-4a97f3babf67"
+                    },
+                    {
+                      "key": "parameters[payment_url]",
+                      "value": "https://google.com",
+                      "type": "text",
+                      "uuid": "8226bc5f-ff31-46a4-b79c-dfae7cd9393d"
+                    },
+                    {
+                      "key": "parameters[date_of_birth]",
+                      "value": "1990-01-01",
+                      "type": "text",
+                      "uuid": "34dded16-a406-4b40-a909-e1b61910bfb5"
+                    },
+                    {
+                      "key": "parameters[country_of_birth]",
+                      "value": "USA",
+                      "type": "text",
+                      "uuid": "612e904e-3efd-446d-883d-8df1bba114ff"
+                    },
+                    {
+                      "key": "parameters[nationality_country]",
+                      "value": "USA",
+                      "type": "text",
+                      "uuid": "6ff20553-a64e-46f3-8cd6-f499a15b0299"
+                    },
+                    {
+                      "key": "parameters[beneficiary_address.apartment]",
+                      "value": "1A",
+                      "type": "text",
+                      "uuid": "8b4ef374-08c0-4607-9632-ded56b89c2f0"
+                    },
+                    {
+                      "key": "parameters[beneficiary_address.building]",
+                      "value": "10",
+                      "type": "text",
+                      "uuid": "e7716efc-8774-4dc6-9945-87865fa61376"
+                    },
+                    {
+                      "key": "parameters[id_type]",
+                      "value": "passport",
+                      "type": "text",
+                      "uuid": "7a075e4b-2b43-4948-82f8-8cdc91b79652"
+                    },
+                    {
+                      "key": "parameters[id_number]",
+                      "value": "AB123456",
+                      "type": "text",
+                      "uuid": "fb86b7da-afcd-471e-9998-5ca3b5b2691e"
+                    },
+                    {
+                      "key": "parameters[id_country]",
+                      "value": "USA",
+                      "type": "text",
+                      "uuid": "6620433b-6c3e-4d2d-bc50-a83bbcc75a64"
+                    },
+                    {
+                      "key": "parameters[id_expiry_date]",
+                      "value": "2030-01-01",
+                      "type": "text",
+                      "uuid": "74fc92b7-1778-4eb1-8af2-a73531fc6f7a"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{H2H_HOST}}/post",
+                  "host": [
+                    "{{H2H_HOST}}"
+                  ],
+                  "path": [
+                    "post"
+                  ]
+                },
+                "description": "### 📥 Request Body\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `action` | String | ✅ Yes | Action to perform (=CREDIT2CARD) |\n| `client_key` | String | ✅ Yes | Unique client key (CLIENT_KEY) |\n| `order_id` | String | ✅ Yes | Transaction ID in the Clients system |\n| `order_amount` | Number | ✅ Yes | Format: Integer |\n| `order_currency` | String | ✅ Yes | Currency |\n| `order_description` | String | ✅ Yes | Description of the transaction (product name) |\n| `card_number` | String | ✅ Yes | Credit Card Number |\n| `payer_first_name` | String | ✅ Yes | Customer's first name |\n| `payer_last_name` | String | ✅ Yes | Customer's last name |\n| `payer_email` | String | ✅ Yes | Customer's email address |\n| `payer_ip` | String | ✅ Yes | Customer's IP address |\n| `hash` | String | ✅ Yes | Special signature to validate your request to Payment Platform |\n| parameters\\[payment_url\\] | String | ✅ Yes | URL for returning the payer |\n| parameters\\[date_of_birth\\] | String | ✅ Yes | Format:  <br>parameters\\[param1\\]: value1 |\n| parameters\\[country_of_birth\\] | String | ✅ Yes | Format:  <br>parameters\\[param1\\]: value1 |\n| parameters\\[nationality_country\\] | String | ✅ Yes | Format:  <br>parameters\\[param1\\]: value1 |\n| parameters\\[beneficiary_address.apartment\\] | String | ✅ Yes | Format:  <br>parameters\\[param1\\]: value1 |\n| parameters\\[beneficiary_address.building\\] | String | ✅ Yes | Format:  <br>parameters\\[param1\\]: value1 |\n| parameters\\[id_type\\] | String | ✅ Yes | Format:  <br>parameters\\[param1\\]: value1 |\n| parameters\\[id_number\\] | String | ✅ Yes | Format:  <br>parameters\\[param1\\]: value1 |\n| parameters\\[id_country\\] | String | ✅ Yes | Format:  <br>parameters\\[param1\\]: value1 |\n| parameters\\[id_expiry_date\\] | String | ✅ Yes | Format:  <br>parameters\\[param1\\]: value1 |"
+              },
+              "response": [
+                {
+                  "name": "200 OK",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/x-www-form-urlencoded",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"action\": \"CREDIT2CARD\",\n  \"result\": \"SUCCESS\",\n  \"status\": \"SETTLED\",\n  \"order_id\": \"ORD-10001\",\n  \"trans_id\": \"TRX123456789\",\n  \"trans_date\": \"2025-06-08T12:34:56Z\",\n  \"descriptor\": \"example.com/support\"\n}"
+                    },
+                    "url": {
+                      "raw": "{{H2H_HOST}}/post",
+                      "host": [
+                        "{{H2H_HOST}}"
+                      ],
+                      "path": [
+                        "post"
+                      ]
+                    }
+                  },
+                  "_postman_previewlanguage": null,
+                  "header": null,
+                  "cookie": [],
+                  "body": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "PayIn",
+          "item": [
+            {
+              "name": "CARD H2H PayIn",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      "const CryptoJS = require('crypto-js');",
+                      "",
+                      "const orderId = crypto.randomUUID();",
+                      "const PASSWORD = pm.environment.get(\"PASSWORD\");",
+                      "const cardNumber = pm.request.body.urlencoded.get(\"card_number\");",
+                      "const email = pm.request.body.urlencoded.get(\"payer_email\");",
+                      "",
+                      "const revemail = email.split('').reverse().join('');",
+                      "const cardPart = cardNumber.substring(0, 6) + cardNumber.slice(-4);",
+                      "const revCardPart = cardPart.split('').reverse().join('');",
+                      "const concatenatio = revemail + PASSWORD + revCardPart;",
+                      "const hash = CryptoJS.MD5(concatenatio.toUpperCase()).toString().toLowerCase();",
+                      "",
+                      "pm.environment.set(\"computed_hash\", hash);",
+                      "pm.environment.set(\"order_id\", orderId);"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "action",
+                      "value": "SALE",
+                      "type": "text",
+                      "uuid": "2a2a5571-5430-4188-b76b-ff1c6e07e0b8"
+                    },
+                    {
+                      "key": "client_key",
+                      "value": "{{merchant_key}}",
+                      "type": "text",
+                      "uuid": "6185324e-d737-457e-a0df-14c1266afed4"
+                    },
+                    {
+                      "key": "order_id",
+                      "value": "{{order_id}}",
+                      "type": "text",
+                      "uuid": "448eb846-4684-4198-9fdf-74060d1b9f6c"
+                    },
+                    {
+                      "key": "order_amount",
+                      "value": "15.00",
+                      "type": "text",
+                      "uuid": "875fca98-1ef4-42a3-bcc0-852695afcaea"
+                    },
+                    {
+                      "key": "order_currency",
+                      "value": "USD",
+                      "type": "text",
+                      "uuid": "1d4307bf-a549-4701-be25-c3aac4355292"
+                    },
+                    {
+                      "key": "order_description",
+                      "value": "Sale description",
+                      "type": "text",
+                      "uuid": "278211d2-f046-46f3-89f3-6ca89730aa5c"
+                    },
+                    {
+                      "key": "card_number",
+                      "value": "4111111111111111",
+                      "type": "text",
+                      "uuid": "92860957-3a12-449b-89ef-c6feb772525e"
+                    },
+                    {
+                      "key": "card_exp_month",
+                      "value": "12",
+                      "type": "text",
+                      "uuid": "4892db5b-689f-4fb7-9328-081896e76eff"
+                    },
+                    {
+                      "key": "card_exp_year",
+                      "value": "2099",
+                      "type": "text",
+                      "uuid": "28366ce2-416b-4d6d-96a7-ad78ba07fe55"
+                    },
+                    {
+                      "key": "card_cvv2",
+                      "value": "111",
+                      "type": "text",
+                      "uuid": "8cd9b2b7-b49e-43ef-8f58-be9bb42def64"
+                    },
+                    {
+                      "key": "payer_first_name",
+                      "value": "John",
+                      "type": "text",
+                      "uuid": "6ae6b637-32af-4b6f-a717-2cef179d3e8f"
+                    },
+                    {
+                      "key": "payer_last_name",
+                      "value": "Doe",
+                      "type": "text",
+                      "uuid": "a4efe712-3bc6-4d2c-a381-6c3e63ec7d0b"
+                    },
+                    {
+                      "key": "payer_email",
+                      "value": "test@test.com",
+                      "type": "text",
+                      "uuid": "9d97e6aa-ebbf-4098-b844-676f94e72ee9"
+                    },
+                    {
+                      "key": "payer_country",
+                      "value": "US",
+                      "type": "text",
+                      "uuid": "5d7cf86f-3e70-4c76-8ff6-a44760a388bc"
+                    },
+                    {
+                      "key": "payer_ip",
+                      "value": "127.0.0.1",
+                      "type": "text",
+                      "uuid": "c1836ab9-4cd5-44ea-9542-764c5ae87928"
+                    },
+                    {
+                      "key": "term_url_3ds",
+                      "value": "https://www.google.com/",
+                      "type": "text",
+                      "uuid": "8231cebd-ee83-44e9-9362-c41d888beca4"
+                    },
+                    {
+                      "key": "payer_city",
+                      "value": "New York",
+                      "type": "text",
+                      "uuid": "b7b32527-cdf5-4327-b6b6-038b167db820"
+                    },
+                    {
+                      "key": "payer_address",
+                      "value": "123 Main St",
+                      "type": "text",
+                      "uuid": "a6ec9b7b-f23a-44f8-aa3f-791ed5cc8c65"
+                    },
+                    {
+                      "key": "payer_zip",
+                      "value": "10001",
+                      "type": "text",
+                      "uuid": "9aca07c0-9f24-44c7-b20f-90ea1c207802"
+                    },
+                    {
+                      "key": "payer_phone",
+                      "value": "+1234567890",
+                      "type": "text",
+                      "uuid": "6f62638f-2a52-42e7-aec5-4e80bfa212fc"
+                    },
+                    {
+                      "key": "hash",
+                      "value": "{{computed_hash}}",
+                      "type": "text",
+                      "uuid": "aaf29a9b-01ac-42b7-827a-4a97f3babf67"
+                    },
+                    {
+                      "key": "parameters[param1]",
+                      "value": "value1",
+                      "type": "text",
+                      "uuid": "b6a63ba1-a561-416c-8570-fad79a067de3"
+                    },
+                    {
+                      "key": "parameters[param2]",
+                      "value": "value2",
+                      "type": "text",
+                      "uuid": "8cde5193-f82c-4fe0-808a-71e2e2edaa73"
+                    },
+                    {
+                      "key": "parameters[param3]",
+                      "value": "value3",
+                      "type": "text",
+                      "uuid": "7b558a8b-e949-4068-b138-40b4dfc0b687"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{H2H_HOST}}/post",
+                  "host": [
+                    "{{H2H_HOST}}"
+                  ],
+                  "path": [
+                    "post"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "preview PayIn",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "body",
+                      "value": "VkIra2p3TDYxNzU1NXMzMFBHdDNNVU5wOElLMU9DSkprZU5FcjBZelZYQzV5VXduam5NcWtKaVIyS0tRdTZ4K2t3OFJ5S0Q1bEZjOU5nQVJHT0FoVklyUkJlVlBZWlJ6RDh1VDRuUDIyZjlSajg2QVcvOGgwQjcyUmVLOHFURWgxK0x5alFzazE4SE9MNTQ1Y25WeVVBPT06OmtlZ0RLMVVVMmhBNTQrNjdGRXNMTHc9PQ==",
+                      "type": "text",
+                      "uuid": "5d20aad3-1ef4-4250-b308-28e6a611cbe7"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "https://pay.ledgex.io/collector/571aa774-6402-11f1-a895-4a61ade17407",
+                  "protocol": "https",
+                  "host": [
+                    "pay",
+                    "ledgex",
+                    "io"
+                  ],
+                  "path": [
+                    "collector",
+                    "571aa774-6402-11f1-a895-4a61ade17407"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
