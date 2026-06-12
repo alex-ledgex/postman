@@ -858,6 +858,7 @@
 											"",
 											"const requestBody = JSON.parse(pm.request.body.raw);",
 											"const orderId = crypto.randomUUID();",
+											"const number_id = crypto.randomUUID();",
 											"",
 											"const orderNumber = orderId;       ",
 											"const orderAmount = requestBody.order.amount;",
@@ -870,7 +871,8 @@
 											"const sha1Hash = CryptoJS.SHA1(md5Hash);",
 											"const hash = CryptoJS.enc.Hex.stringify(sha1Hash);",
 											"pm.variables.set(\"computed_hash\", hash);",
-											"pm.variables.set(\"number\", orderNumber);"
+											"pm.variables.set(\"number\", orderNumber);",
+											"pm.variables.set(\"number_id\", number_id);"
 										],
 										"type": "text/javascript",
 										"packages": {},
@@ -887,7 +889,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"merchant_key\": \"{{merchant_key}}\",\n    \"operation\": \"credit\",\n    \"methods\": [\"havaleout\"],\n    \"order\": {\n        \"number\": \"{{number}}\",\n        \"amount\": \"10000.00\",\n        \"currency\": \"TRY\",\n        \"description\": \"Payout to customer\"\n    },\n    \"success_url\": \"https://www.google.com/\",\n    \"cancel_url\": \"https://www.google.com/\",\n    \"hash\": \"{{computed_hash}}\"\n}",
+									"raw": "{\n    \"merchant_key\": \"{{merchant_key}}\",\n    \"operation\": \"credit\",\n    \"methods\": [\"havaleout\"],\n    \"order\": {\n        \"number\": \"{{number}}\",\n        \"amount\": \"10000.00\",\n        \"currency\": \"TRY\",\n        \"description\": \"Payout to customer\"\n    },\n    \"parameters\": {\n        \"havaleout\": {\n            \"user_id\": \"{{number_id}}\"\n        }\n    },\n    \"success_url\": \"https://www.google.com/\",\n    \"cancel_url\": \"https://www.google.com/\",\n    \"hash\": \"{{computed_hash}}\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
