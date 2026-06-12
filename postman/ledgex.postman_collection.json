@@ -1204,6 +1204,19 @@
 									"script": {
 										"id": "5d3dd4ca-8b4f-4119-a8c0-0650db1e6d5b",
 										"exec": [
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "7e1a752f-4e14-48c1-b655-e531f2dcb714",
+										"exec": [
 											"const CryptoJS = require('crypto-js');",
 											"",
 											"const PASSWORD = pm.environment.get(\"PASSWORD\");",
@@ -1221,8 +1234,7 @@
 											"const hash = CryptoJS.MD5(upper).toString().toLowerCase();",
 											"",
 											"pm.environment.set(\"computed_hash\", hash);",
-											"pm.environment.set(\"order_id\", order_id);",
-											""
+											"pm.environment.set(\"order_id\", order_id);"
 										],
 										"type": "text/javascript",
 										"packages": {},
