@@ -887,7 +887,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"merchant_key\": \"{{merchant_key}}\",\n    \"operation\": \"credit\",\n    \"methods\": [\"havaleout\"],\n    \"order\": {\n        \"number\": \"{{number}}\",\n        \"amount\": \"5000.00\",\n        \"currency\": \"TRY\",\n        \"description\": \"Payout to customer\"\n    },\n    \"success_url\": \"https://www.google.com/\",\n    \"cancel_url\": \"https://www.google.com/\",\n    \"hash\": \"{{computed_hash}}\"\n}",
+									"raw": "{\n    \"merchant_key\": \"{{merchant_key}}\",\n    \"operation\": \"credit\",\n    \"methods\": [\"havaleout\"],\n    \"order\": {\n        \"number\": \"{{number}}\",\n        \"amount\": \"10000.00\",\n        \"currency\": \"TRY\",\n        \"description\": \"Payout to customer\"\n    },\n    \"success_url\": \"https://www.google.com/\",\n    \"cancel_url\": \"https://www.google.com/\",\n    \"hash\": \"{{computed_hash}}\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
