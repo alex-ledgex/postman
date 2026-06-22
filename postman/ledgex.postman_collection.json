@@ -2047,6 +2047,103 @@
 					"name": "PayIn",
 					"item": [
 						{
+							"name": "CARD HPP PayIn",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "e3f94a05-05b6-431f-b086-2a0e31b04870",
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "7c4c1922-6bc7-4011-9726-5898f6cebcce",
+										"exec": [
+											"const CryptoJS = require('crypto-js');",
+											"",
+											"const PASSWORD = pm.environment.get(\"PASSWORD\");",
+											"",
+											"const requestBody = JSON.parse(pm.request.body.raw);",
+											"const orderId = crypto.randomUUID();",
+											"",
+											"const orderNumber = orderId;       ",
+											"const orderAmount = requestBody.order.amount;",
+											"const orderCurrency = requestBody.order.currency;",
+											"const orderDescription = requestBody.order.description;",
+											"",
+											"const to_md5 = orderNumber + orderAmount + orderCurrency + orderDescription + PASSWORD;",
+											"",
+											"const md5Hash = CryptoJS.MD5(to_md5.toUpperCase()).toString();",
+											"const sha1Hash = CryptoJS.SHA1(md5Hash);",
+											"const hash = CryptoJS.enc.Hex.stringify(sha1Hash);",
+											"pm.variables.set(\"computed_hash\", hash);",
+											"pm.variables.set(\"number\", orderNumber);"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"id": "fb2b55e4-47be-4812-b3c6-670c290c50ab",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n   \"merchant_key\": \"{{merchant_key}}\",\n    \"operation\": \"purchase\",\n    \"order\": {\n        \"number\": \"{{number}}\",\n        \"amount\": \"15.00\",\n        \"currency\": \"USD\",\n        \"description\": \"test payin\"\n    },\n    \"customer\": {\n        \"name\": \"Joe Dhoe\"\n    },\n    \"success_url\": \"https://www.google.com/\",\n    \"hash\": \"{{computed_hash}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{HPP_HOST}}/api/v1/session"
+							},
+							"response": [
+								{
+									"id": "f4f54a0f-455e-4b18-8207-c249a8ed8100",
+									"name": "200 OK",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n   \"merchant_key\": \"{{merchant_key}}\",\n    \"operation\": \"purchase\",\n    \"order\": {\n        \"number\": \"{{number}}\",\n        \"amount\": \"15.00\",\n        \"currency\": \"USD\",\n        \"description\": \"test payin\"\n    },\n    \"customer\": {\n        \"name\": \"Joe Dhoe\"\n    },\n    \"success_url\": \"https://www.google.com/\",\n    \"hash\": \"{{computed_hash}}\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{HPP_HOST}}/api/v1/session"
+									},
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text"
+										}
+									],
+									"cookie": [],
+									"responseTime": null,
+									"body": "{\n    \"redirect_url\": \"https://example.domain.com/auth/ZXlKMGVYQWlPaUpL...\"\n}"
+								}
+							]
+						},
+						{
 							"name": "CARD H2H PayIn",
 							"event": [
 								{
@@ -2414,7 +2511,7 @@
 							]
 						},
 						{
-							"name": "preview PayIn",
+							"name": "preview PayIn for H2H",
 							"id": "0551afa5-3f3d-4aa4-b317-3a8c53e2a73a",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
@@ -2434,18 +2531,6 @@
 									]
 								},
 								"url": "https://pay.ledgex.io/collector/571aa774-6402-11f1-a895-4a61ade17407"
-							},
-							"response": []
-						},
-						{
-							"name": "CARD HPP PayIn",
-							"id": "fb2b55e4-47be-4812-b3c6-670c290c50ab",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": []
 							},
 							"response": []
 						}
@@ -2796,6 +2881,18 @@
 									"body": "{\n  \"action\": \"CREDIT2CARD\",\n  \"result\": \"SUCCESS\",\n  \"status\": \"SETTLED\",\n  \"order_id\": \"ORD-10001\",\n  \"trans_id\": \"TRX123456789\",\n  \"trans_date\": \"2025-06-08T12:34:56Z\",\n  \"descriptor\": \"example.com/support\"\n}"
 								}
 							]
+						},
+						{
+							"name": "CARD HPP PayIn",
+							"id": "4c08d4c2-dafe-48bd-b23f-dd9ac9534acf",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
 						}
 					],
 					"id": "97ded3cc-eec7-42ad-9123-ac02599fc123"
