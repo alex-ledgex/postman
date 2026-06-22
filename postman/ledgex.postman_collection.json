@@ -2223,28 +2223,168 @@
 							},
 							"response": [
 								{
-									"id": "b36f99ae-37dd-4a0f-b790-216d8c3f1348",
+									"id": "a72371bb-9d9c-44f4-8d5b-f55aae106fc7",
 									"name": "200 OK",
 									"originalRequest": {
 										"method": "POST",
-										"header": [
-											{
-												"key": "Content-Type",
-												"value": "application/x-www-form-urlencoded",
-												"type": "text"
-											}
-										],
+										"header": [],
 										"body": {
-											"mode": "raw",
-											"raw": "{\n  \"action\": \"CREDIT2CARD\",\n  \"result\": \"SUCCESS\",\n  \"status\": \"SETTLED\",\n  \"order_id\": \"ORD-10001\",\n  \"trans_id\": \"TRX123456789\",\n  \"trans_date\": \"2025-06-08T12:34:56Z\",\n  \"descriptor\": \"example.com/support\"\n}"
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "action",
+													"value": "CREDIT2CARD",
+													"type": "text",
+													"uuid": "2a2a5571-5430-4188-b76b-ff1c6e07e0b8"
+												},
+												{
+													"key": "client_key",
+													"value": "{{merchant_key}}",
+													"type": "text",
+													"uuid": "6185324e-d737-457e-a0df-14c1266afed4"
+												},
+												{
+													"key": "order_id",
+													"value": "{{order_id}}",
+													"type": "text",
+													"uuid": "448eb846-4684-4198-9fdf-74060d1b9f6c"
+												},
+												{
+													"key": "order_amount",
+													"value": "10.00",
+													"type": "text",
+													"uuid": "875fca98-1ef4-42a3-bcc0-852695afcaea"
+												},
+												{
+													"key": "order_currency",
+													"value": "USD",
+													"type": "text",
+													"uuid": "1d4307bf-a549-4701-be25-c3aac4355292"
+												},
+												{
+													"key": "order_description",
+													"value": "Payout description",
+													"type": "text",
+													"uuid": "278211d2-f046-46f3-89f3-6ca89730aa5c"
+												},
+												{
+													"key": "card_number",
+													"value": "4111111111111111",
+													"type": "text",
+													"uuid": "0dc8000d-8376-4a13-8dab-1dedeea49228"
+												},
+												{
+													"key": "payee_first_name",
+													"value": "John",
+													"type": "text",
+													"uuid": "6ae6b637-32af-4b6f-a717-2cef179d3e8f"
+												},
+												{
+													"key": "payee_last_name",
+													"value": "Doe",
+													"type": "text",
+													"uuid": "a4efe712-3bc6-4d2c-a381-6c3e63ec7d0b"
+												},
+												{
+													"key": "payee_email",
+													"value": "test@test.com",
+													"type": "text",
+													"uuid": "4b868680-0cb4-4d55-8a9a-41c3be916134"
+												},
+												{
+													"key": "payer_ip",
+													"value": "192.167.1.1",
+													"type": "text",
+													"uuid": "b54c3001-f998-4b10-9ef4-135b02e05064"
+												},
+												{
+													"key": "hash",
+													"value": "{{computed_hash}}",
+													"type": "text",
+													"uuid": "aaf29a9b-01ac-42b7-827a-4a97f3babf67"
+												},
+												{
+													"key": "parameters[payment_url]",
+													"value": "https://google.com",
+													"type": "text",
+													"uuid": "8226bc5f-ff31-46a4-b79c-dfae7cd9393d"
+												},
+												{
+													"key": "parameters[date_of_birth]",
+													"value": "1990-01-01",
+													"type": "text",
+													"uuid": "34dded16-a406-4b40-a909-e1b61910bfb5"
+												},
+												{
+													"key": "parameters[country_of_birth]",
+													"value": "USA",
+													"type": "text",
+													"uuid": "612e904e-3efd-446d-883d-8df1bba114ff"
+												},
+												{
+													"key": "parameters[nationality_country]",
+													"value": "USA",
+													"type": "text",
+													"uuid": "6ff20553-a64e-46f3-8cd6-f499a15b0299"
+												},
+												{
+													"key": "parameters[beneficiary_address.apartment]",
+													"value": "1A",
+													"type": "text",
+													"uuid": "8b4ef374-08c0-4607-9632-ded56b89c2f0"
+												},
+												{
+													"key": "parameters[beneficiary_address.building]",
+													"value": "10",
+													"type": "text",
+													"uuid": "e7716efc-8774-4dc6-9945-87865fa61376"
+												},
+												{
+													"key": "parameters[id_type]",
+													"value": "passport",
+													"type": "text",
+													"uuid": "7a075e4b-2b43-4948-82f8-8cdc91b79652"
+												},
+												{
+													"key": "parameters[id_number]",
+													"value": "AB123456",
+													"type": "text",
+													"uuid": "fb86b7da-afcd-471e-9998-5ca3b5b2691e"
+												},
+												{
+													"key": "parameters[id_country]",
+													"value": "USA",
+													"type": "text",
+													"uuid": "6620433b-6c3e-4d2d-bc50-a83bbcc75a64"
+												},
+												{
+													"key": "parameters[id_expiry_date]",
+													"value": "2030-01-01",
+													"type": "text",
+													"uuid": "74fc92b7-1778-4eb1-8af2-a73531fc6f7a"
+												}
+											]
 										},
 										"url": "{{H2H_HOST}}/post"
 									},
-									"_postman_previewlanguage": null,
-									"header": null,
-									"cookie": [],
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text"
+										}
+									],
+									"cookie": [
+										{
+											"expires": "Invalid Date",
+											"domain": "",
+											"path": ""
+										}
+									],
 									"responseTime": null,
-									"body": null
+									"body": "{\n  \"action\": \"CREDIT2CARD\",\n  \"result\": \"SUCCESS\",\n  \"status\": \"SETTLED\",\n  \"order_id\": \"ORD-10001\",\n  \"trans_id\": \"TRX123456789\",\n  \"trans_date\": \"2025-06-08T12:34:56Z\",\n  \"descriptor\": \"example.com/support\"\n}"
 								}
 							]
 						}
@@ -2442,7 +2582,171 @@
 								},
 								"url": "{{H2H_HOST}}/post"
 							},
-							"response": []
+							"response": [
+								{
+									"id": "81a31e79-05a2-489f-8bad-488bac0f7917",
+									"name": "CARD H2H PayIn",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "action",
+													"value": "SALE",
+													"type": "text",
+													"uuid": "2a2a5571-5430-4188-b76b-ff1c6e07e0b8"
+												},
+												{
+													"key": "client_key",
+													"value": "{{merchant_key}}",
+													"type": "text",
+													"uuid": "6185324e-d737-457e-a0df-14c1266afed4"
+												},
+												{
+													"key": "order_id",
+													"value": "{{order_id}}",
+													"type": "text",
+													"uuid": "448eb846-4684-4198-9fdf-74060d1b9f6c"
+												},
+												{
+													"key": "order_amount",
+													"value": "15.00",
+													"type": "text",
+													"uuid": "875fca98-1ef4-42a3-bcc0-852695afcaea"
+												},
+												{
+													"key": "order_currency",
+													"value": "USD",
+													"type": "text",
+													"uuid": "1d4307bf-a549-4701-be25-c3aac4355292"
+												},
+												{
+													"key": "order_description",
+													"value": "Sale description",
+													"type": "text",
+													"uuid": "278211d2-f046-46f3-89f3-6ca89730aa5c"
+												},
+												{
+													"key": "card_number",
+													"value": "4111111111111111",
+													"type": "text",
+													"uuid": "92860957-3a12-449b-89ef-c6feb772525e"
+												},
+												{
+													"key": "card_exp_month",
+													"value": "12",
+													"type": "text",
+													"uuid": "4892db5b-689f-4fb7-9328-081896e76eff"
+												},
+												{
+													"key": "card_exp_year",
+													"value": "2099",
+													"type": "text",
+													"uuid": "28366ce2-416b-4d6d-96a7-ad78ba07fe55"
+												},
+												{
+													"key": "card_cvv2",
+													"value": "111",
+													"type": "text",
+													"uuid": "8cd9b2b7-b49e-43ef-8f58-be9bb42def64"
+												},
+												{
+													"key": "payer_first_name",
+													"value": "John",
+													"type": "text",
+													"uuid": "6ae6b637-32af-4b6f-a717-2cef179d3e8f"
+												},
+												{
+													"key": "payer_last_name",
+													"value": "Doe",
+													"type": "text",
+													"uuid": "a4efe712-3bc6-4d2c-a381-6c3e63ec7d0b"
+												},
+												{
+													"key": "payer_email",
+													"value": "test@test.com",
+													"type": "text",
+													"uuid": "9d97e6aa-ebbf-4098-b844-676f94e72ee9"
+												},
+												{
+													"key": "payer_country",
+													"value": "US",
+													"type": "text",
+													"uuid": "5d7cf86f-3e70-4c76-8ff6-a44760a388bc"
+												},
+												{
+													"key": "payer_ip",
+													"value": "127.0.0.1",
+													"type": "text",
+													"uuid": "c1836ab9-4cd5-44ea-9542-764c5ae87928"
+												},
+												{
+													"key": "term_url_3ds",
+													"value": "https://www.google.com/",
+													"type": "text",
+													"uuid": "8231cebd-ee83-44e9-9362-c41d888beca4"
+												},
+												{
+													"key": "payer_city",
+													"value": "New York",
+													"type": "text",
+													"uuid": "b7b32527-cdf5-4327-b6b6-038b167db820"
+												},
+												{
+													"key": "payer_address",
+													"value": "123 Main St",
+													"type": "text",
+													"uuid": "a6ec9b7b-f23a-44f8-aa3f-791ed5cc8c65"
+												},
+												{
+													"key": "payer_zip",
+													"value": "10001",
+													"type": "text",
+													"uuid": "9aca07c0-9f24-44c7-b20f-90ea1c207802"
+												},
+												{
+													"key": "payer_phone",
+													"value": "+1234567890",
+													"type": "text",
+													"uuid": "6f62638f-2a52-42e7-aec5-4e80bfa212fc"
+												},
+												{
+													"key": "hash",
+													"value": "{{computed_hash}}",
+													"type": "text",
+													"uuid": "aaf29a9b-01ac-42b7-827a-4a97f3babf67"
+												},
+												{
+													"key": "parameters[param1]",
+													"value": "value1",
+													"type": "text",
+													"uuid": "b6a63ba1-a561-416c-8570-fad79a067de3"
+												},
+												{
+													"key": "parameters[param2]",
+													"value": "value2",
+													"type": "text",
+													"uuid": "8cde5193-f82c-4fe0-808a-71e2e2edaa73"
+												},
+												{
+													"key": "parameters[param3]",
+													"value": "value3",
+													"type": "text",
+													"uuid": "7b558a8b-e949-4068-b138-40b4dfc0b687"
+												}
+											]
+										},
+										"url": "{{H2H_HOST}}/post"
+									},
+									"_postman_previewlanguage": null,
+									"header": null,
+									"cookie": [],
+									"responseTime": null,
+									"body": null
+								}
+							]
 						},
 						{
 							"name": "preview PayIn",
