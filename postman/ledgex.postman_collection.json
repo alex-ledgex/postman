@@ -877,7 +877,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"redirect_url\": \"https://example.domain.com/auth/ZXlKMGVYQWlPaUpL...\"\n}",
+											"raw": "{\n  \"merchant_key\": \"{{merchant_key}}\",\n  \"operation\": \"purchase\",\n  \"methods\": [\n    \"havalein\"\n  ],\n  \"order\": {\n    \"number\": \"{{number}}\",\n    \"amount\": \"2000.00\",\n    \"currency\": \"TRY\",\n    \"description\": \"Test payment\"\n  },\n  \"cancel_url\": \"https://www.google.com/\",\n  \"success_url\": \"https://www.google.com/\",\n  \"hash\": \"{{computed_hash}}\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -886,11 +886,18 @@
 										},
 										"url": "{{HPP_HOST}}/api/v1/session"
 									},
-									"_postman_previewlanguage": null,
-									"header": null,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text"
+										}
+									],
 									"cookie": [],
 									"responseTime": null,
-									"body": null
+									"body": "{\n    \"redirect_url\": \"https://example.domain.com/auth/ZXlKMGVYQWlPaUpL...\"\n}"
 								}
 							]
 						},
@@ -1041,19 +1048,123 @@
 							},
 							"response": [
 								{
-									"id": "0c6ef360-9701-436d-999b-e41e8066984a",
+									"id": "06364907-0d93-4c7e-8ddb-1e1bc0d7e68b",
 									"name": "200 OK",
 									"originalRequest": {
 										"method": "POST",
 										"header": [],
 										"body": {
-											"mode": "raw",
-											"raw": "{\n  \"action\": \"SALE\",\n  \"result\": \"SUCCESS\",\n  \"status\": \"PENDING\",\n  \"order_id\": \"order-1234\",\n  \"trans_id\": \"66624eba-9e10-11ec-aa41-0242ac130002\",\n  \"trans_date\": \"2025-06-08T12:34:56Z\",\n  \"descriptor\": \"Customer Support Website\",\n  \"amount\": 100.99,\n  \"currency\": \"USD\",\n  \"crypto_address\": \"0xAbC1234Def5678...\",\n  \"crypto_network\": \"ERC20\"\n}"
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "action",
+													"value": "SALE",
+													"type": "text",
+													"uuid": "2a2a5571-5430-4188-b76b-ff1c6e07e0b8"
+												},
+												{
+													"key": "client_key",
+													"value": "{{merchant_key}}",
+													"type": "text",
+													"uuid": "6185324e-d737-457e-a0df-14c1266afed4"
+												},
+												{
+													"key": "brand",
+													"value": "havalein",
+													"type": "text",
+													"uuid": "81d70ee5-97e2-49db-a913-6e281015f352"
+												},
+												{
+													"key": "order_id",
+													"value": "{{order_id}}",
+													"type": "text",
+													"uuid": "448eb846-4684-4198-9fdf-74060d1b9f6c"
+												},
+												{
+													"key": "order_amount",
+													"value": "1000.00",
+													"type": "text",
+													"uuid": "875fca98-1ef4-42a3-bcc0-852695afcaea"
+												},
+												{
+													"key": "order_currency",
+													"value": "TRY",
+													"type": "text",
+													"uuid": "1d4307bf-a549-4701-be25-c3aac4355292"
+												},
+												{
+													"key": "order_description",
+													"value": "Test payment",
+													"type": "text",
+													"uuid": "278211d2-f046-46f3-89f3-6ca89730aa5c"
+												},
+												{
+													"key": "identifier",
+													"value": "payer@example.com",
+													"type": "text",
+													"uuid": "38837e8f-66db-431f-8b0c-442ff10a27e0"
+												},
+												{
+													"key": "payee_first_name",
+													"value": "John",
+													"type": "text",
+													"uuid": "6ae6b637-32af-4b6f-a717-2cef179d3e8f"
+												},
+												{
+													"key": "payee_last_name",
+													"value": "Doe",
+													"type": "text",
+													"uuid": "a4efe712-3bc6-4d2c-a381-6c3e63ec7d0b"
+												},
+												{
+													"key": "payee_email",
+													"value": "payer@example.com",
+													"type": "text",
+													"uuid": "4b868680-0cb4-4d55-8a9a-41c3be916134"
+												},
+												{
+													"key": "payer_phone",
+													"value": "+911234567890",
+													"type": "text",
+													"uuid": "fa2e4eb8-4946-4c24-990e-87498414f28f"
+												},
+												{
+													"key": "payer_ip",
+													"value": "192.167.1.1",
+													"type": "text",
+													"uuid": "b54c3001-f998-4b10-9ef4-135b02e05064"
+												},
+												{
+													"key": "return_url",
+													"value": "https://example.com/return",
+													"type": "text",
+													"uuid": "60179392-e77b-4b21-931e-d09f8270a435"
+												},
+												{
+													"key": "parameters[user_id]",
+													"value": "MERCHANT_USER_123",
+													"type": "text",
+													"uuid": "68b9bb36-470c-4791-9a97-bcdda0226bae"
+												},
+												{
+													"key": "hash",
+													"value": "{{computed_hash}}",
+													"type": "text",
+													"uuid": "aaf29a9b-01ac-42b7-827a-4a97f3babf67"
+												}
+											]
 										},
 										"url": "{{H2H_HOST}}/post"
 									},
-									"_postman_previewlanguage": "",
-									"header": [],
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text"
+										}
+									],
 									"cookie": [
 										{
 											"expires": "Invalid Date",
@@ -1062,7 +1173,7 @@
 										}
 									],
 									"responseTime": null,
-									"body": ""
+									"body": "{\n    \"action\": \"SALE\",\n    \"result\": \"SUCCESS\",\n    \"status\": \"PENDING\",\n    \"order_id\": \"order-1234\",\n    \"trans_id\": \"66624eba-9e10-11ec-aa41-0242ac130002\",\n    \"trans_date\": \"2025-06-08T12:34:56Z\",\n    \"descriptor\": \"Customer Support Website\",\n    \"amount\": 100.99,\n    \"currency\": \"USD\",\n    \"crypto_address\": \"0xAbC1234Def5678...\",\n    \"crypto_network\": \"ERC20\"\n}"
 								}
 							]
 						}
@@ -1148,7 +1259,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"redirect_url\": \"https://example.domain.com/auth/ZXlKMGVYQWlPaUpL...\"\n}",
+											"raw": "{\n    \"merchant_key\": \"{{merchant_key}}\",\n    \"operation\": \"credit\",\n    \"methods\": [\"havaleout\"],\n    \"order\": {\n        \"number\": \"{{number}}\",\n        \"amount\": \"10000.00\",\n        \"currency\": \"TRY\",\n        \"description\": \"Payout to customer\"\n    },\n    \"parameters\": {\n        \"havaleout\": {\n            \"user_id\": \"{{number_id}}\"\n        }\n    },\n    \"success_url\": \"https://www.google.com/\",\n    \"cancel_url\": \"https://www.google.com/\",\n    \"hash\": \"{{computed_hash}}\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -1157,8 +1268,15 @@
 										},
 										"url": "{{HPP_HOST}}/api/v1/session"
 									},
-									"_postman_previewlanguage": "",
-									"header": [],
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text"
+										}
+									],
 									"cookie": [
 										{
 											"expires": "Invalid Date",
@@ -1167,7 +1285,7 @@
 										}
 									],
 									"responseTime": null,
-									"body": ""
+									"body": "{\n    \"redirect_url\": \"https://example.domain.com/auth/ZXlKMGVYQWlPaUpL...\"\n}"
 								}
 							]
 						},
