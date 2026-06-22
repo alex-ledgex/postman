@@ -82,14 +82,14 @@
 							},
 							"response": [
 								{
-									"id": "84ecb7ad-5096-4c07-b1ad-6f4dfacfaa34",
+									"id": "27b4ef94-d0e4-444e-b21e-9602e903805f",
 									"name": "200 OK",
 									"originalRequest": {
 										"method": "POST",
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"redirect_url\": \"https://example.domain.com/auth/ZXlKMGVYQWlPaUpL...\"\n}",
+											"raw": "{\n    \"merchant_key\": \"{{merchant_key}}\",\n    \"operation\": \"purchase\",\n    \"methods\": [\"fp-upi\"],\n    \"order\": {\n    \"number\": \"{{number}}\",\n    \"amount\": \"500.00\",\n    \"currency\": \"INR\",\n    \"description\": \"Test payment\"\n  },\n    \"customer\": {\n        \"name\": \"John Doe\",\n        \"email\": \"payer@example.com\"\n  },\n    \"success_url\": \"https://example.com/success\",\n    \"cancel_url\": \"https://example.com/cancel\",\n    \"hash\": \"{{computed_hash}}\"\n}\n",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -98,17 +98,11 @@
 										},
 										"url": "{{HPP_HOST}}/api/v1/session"
 									},
-									"_postman_previewlanguage": "",
-									"header": [],
-									"cookie": [
-										{
-											"expires": "Invalid Date",
-											"domain": "",
-											"path": ""
-										}
-									],
+									"_postman_previewlanguage": null,
+									"header": null,
+									"cookie": [],
 									"responseTime": null,
-									"body": ""
+									"body": null
 								}
 							]
 						},
