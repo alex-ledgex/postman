@@ -1995,7 +1995,44 @@
 								},
 								"url": "{{HPP_HOST}}/api/v1/session"
 							},
-							"response": []
+							"response": [
+								{
+									"id": "dd6c9362-1763-4d76-bd19-e044573f24c7",
+									"name": "200 OK",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"merchant_key\": \"{{merchant_key}}\",\n    \"operation\": \"credit\",\n    \"methods\": [\"havale-light\"],\n    \"order\": {\n        \"number\": \"{{number}}\",\n        \"amount\": \"10000.00\",\n        \"currency\": \"TRY\",\n        \"description\": \"Payout to customer\"\n    },\n    \"success_url\": \"https://merchant-site.com/success\",\n    \"cancel_url\": \"https://merchant-site.com/cancel\",\n    \"hash\": \"{{computed_hash}}\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{HPP_HOST}}/api/v1/session"
+									},
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text"
+										}
+									],
+									"cookie": [
+										{
+											"expires": "Invalid Date",
+											"domain": "",
+											"path": ""
+										}
+									],
+									"responseTime": null,
+									"body": "{\n    \"redirect_url\": \"https://example.domain.com/auth/ZXlKMGVYQWlPaUpL...\"\n}"
+								}
+							]
 						}
 					],
 					"id": "cd3056a7-f028-4646-a1f6-71e9549b7820"
