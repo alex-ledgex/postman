@@ -472,8 +472,15 @@
 										},
 										"url": "{{HPP_HOST}}/api/v1/session"
 									},
-									"_postman_previewlanguage": "",
-									"header": [],
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text"
+										}
+									],
 									"cookie": [
 										{
 											"expires": "Invalid Date",
@@ -482,7 +489,7 @@
 										}
 									],
 									"responseTime": null,
-									"body": "{\n  \"redirect_url\": \"https://example.domain.com/auth/ZXlKMGVYQWlPaUpL...\"\n}\n"
+									"body": "{\n    \"redirect_url\": \"https://example.domain.com/auth/ZXlKMGVYQWlPaUpL...\"\n}"
 								}
 							]
 						},
@@ -655,22 +662,144 @@
 							},
 							"response": [
 								{
-									"id": "8dc69993-7b27-420d-a6e2-e1b334562b9c",
+									"id": "470bc64e-4603-48b4-af79-f1fdfdc783ee",
 									"name": "200 OK",
 									"originalRequest": {
 										"method": "POST",
 										"header": [],
 										"body": {
-											"mode": "raw",
-											"raw": "{\n  \"action\": \"CREDIT2VIRTUAL\",\n  \"result\": \"SUCCESS\",\n  \"status\": \"SETTLED\",\n  \"order_id\": 1613117050,\n  \"trans_id\": \"e5098d62-6d08-11eb-9da3-0242ac120013\",\n  \"trans_date\": \"2021-02-12 08:04:15\",\n  \"amount\": \"0.19\",\n  \"currency\": \"USD\",\n  \"decline_reason\": \"Declined by processing\"\n}"
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "action",
+													"value": "CREDIT2VIRTUAL",
+													"type": "text",
+													"uuid": "2a2a5571-5430-4188-b76b-ff1c6e07e0b8"
+												},
+												{
+													"key": "client_key",
+													"value": "{{merchant_key}}",
+													"type": "text",
+													"uuid": "6185324e-d737-457e-a0df-14c1266afed4"
+												},
+												{
+													"key": "brand",
+													"value": "fp-upi",
+													"type": "text",
+													"uuid": "81d70ee5-97e2-49db-a913-6e281015f352"
+												},
+												{
+													"key": "order_id",
+													"value": "{{order_id}}",
+													"type": "text",
+													"uuid": "448eb846-4684-4198-9fdf-74060d1b9f6c"
+												},
+												{
+													"key": "order_amount",
+													"value": "1000.00",
+													"type": "text",
+													"uuid": "875fca98-1ef4-42a3-bcc0-852695afcaea"
+												},
+												{
+													"key": "order_currency",
+													"value": "INR",
+													"type": "text",
+													"uuid": "1d4307bf-a549-4701-be25-c3aac4355292"
+												},
+												{
+													"key": "order_description",
+													"value": "Payout",
+													"type": "text",
+													"uuid": "278211d2-f046-46f3-89f3-6ca89730aa5c"
+												},
+												{
+													"key": "identifier",
+													"value": "payer@example.com",
+													"type": "text",
+													"uuid": "38837e8f-66db-431f-8b0c-442ff10a27e0"
+												},
+												{
+													"key": "payee_first_name",
+													"value": "John",
+													"type": "text",
+													"uuid": "6ae6b637-32af-4b6f-a717-2cef179d3e8f"
+												},
+												{
+													"key": "payee_last_name",
+													"value": "Doe",
+													"type": "text",
+													"uuid": "a4efe712-3bc6-4d2c-a381-6c3e63ec7d0b"
+												},
+												{
+													"key": "payee_email",
+													"value": "payer@example.com",
+													"type": "text",
+													"uuid": "4b868680-0cb4-4d55-8a9a-41c3be916134"
+												},
+												{
+													"key": "payer_phone",
+													"value": "+911234567890",
+													"type": "text",
+													"uuid": "fa2e4eb8-4946-4c24-990e-87498414f28f"
+												},
+												{
+													"key": "payer_ip",
+													"value": "192.167.1.1",
+													"type": "text",
+													"uuid": "b54c3001-f998-4b10-9ef4-135b02e05064"
+												},
+												{
+													"key": "return_url",
+													"value": "https://example.com/return",
+													"type": "text",
+													"uuid": "dbabfd7c-41b8-4f33-8a5b-84d7f377e613"
+												},
+												{
+													"key": "parameters[account_name]",
+													"value": "John Doe",
+													"type": "text",
+													"uuid": "78afae6d-7eae-4299-bff8-3a67b0b4c012"
+												},
+												{
+													"key": "parameters[account_number]",
+													"value": "1234567890",
+													"type": "text",
+													"uuid": "11dbd263-3bae-40cd-a034-4acb37e7fa30"
+												},
+												{
+													"key": "parameters[ifsc_code]",
+													"value": "HDFC0001234",
+													"type": "text",
+													"uuid": "389ac405-db8a-4f18-94ca-ed6de24b86c8"
+												},
+												{
+													"key": "hash",
+													"value": "{{computed_hash}}",
+													"type": "text",
+													"uuid": "aaf29a9b-01ac-42b7-827a-4a97f3babf67"
+												}
+											]
 										},
 										"url": "{{H2H_HOST}}/post"
 									},
-									"_postman_previewlanguage": null,
-									"header": null,
-									"cookie": [],
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text"
+										}
+									],
+									"cookie": [
+										{
+											"expires": "Invalid Date",
+											"domain": "",
+											"path": ""
+										}
+									],
 									"responseTime": null,
-									"body": null
+									"body": "{\n    \"action\": \"CREDIT2VIRTUAL\",\n    \"result\": \"SUCCESS\",\n    \"status\": \"SETTLED\",\n    \"order_id\": 1613117050,\n    \"trans_id\": \"e5098d62-6d08-11eb-9da3-0242ac120013\",\n    \"trans_date\": \"2021-02-12 08:04:15\",\n    \"amount\": \"0.19\",\n    \"currency\": \"USD\",\n    \"decline_reason\": \"Declined by processing\"\n}"
 								}
 							]
 						}
