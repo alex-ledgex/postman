@@ -275,7 +275,7 @@
 										}
 									]
 								},
-								"url": "{{H2H_HOST}}/post",
+								"url": "{{baseURL_H2H}}/post",
 								"description": "### 📥 Request Body\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `action` | String | ✅ Yes | Action to perform (=SALE) |\n| `client_key` | String | ✅ Yes | Unique client key (CLIENT_KEY) |\n| `brand` | String | ✅ Yes | Brand through which the transaction is performed |\n| `order_id` | String | ✅ Yes | Transaction ID in the Clients system |\n| `order_amount` | Number | ✅ Yes | The amount of the transaction |\n| `order_currency` | String | ✅ Yes | Currency |\n| `order_description` | String | ✅ Yes | Description of the transaction (product name) |\n| `identifier` | String | ✅ Yes | Extra parameter for transaction. It could be token, account information, additional descriptor etc. |\n| `payer_first_name` | String | ✅ Yes | Customer's first name |\n| `payer_last_name` | String | ✅ Yes | Customer's last name |\n| `payer_email` | String | ✅ Yes | Customer's email address |\n| `payer_phone` | String | ✅ Yes | Customer's phone number |\n| `payer_ip` | String | ✅ Yes | Customer's IP address |\n| `return_url` | String | ✅ Yes | URL to which Customer should be returned after operation in third-party system |\n| `hash` | String | ✅ Yes | Special signature to validate your request to Payment Platform |"
 							},
 							"response": [
@@ -380,7 +380,7 @@
 												}
 											]
 										},
-										"url": "{{H2H_HOST}}/post"
+										"url": "{{baseURL_H2H}}/post"
 									},
 									"_postman_previewlanguage": "json",
 									"header": [
@@ -1267,7 +1267,7 @@
 										}
 									}
 								},
-								"url": "{{HPP_HOST}}/api/v1/session",
+								"url": "{{baseURL_HPP}}/api/v1/session",
 								"description": "## 📥 Request Body\n\nMinimum amount PayOut 5000 TRY\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `merchant_key` | String | ✅ Yes | Key for Merchant identification |\n| `operation` | String | ✅ Yes | Send the “credit” value so that the payment page for credit initiation will be shown to the customer |\n| `methods` | Array | ✅ Yes | An array of payment methods. Limits the available methods on the Checkout page |\n| `order` | Object | ✅ Yes | Object containing the transaction order details |\n| `order.number` | String | ✅ Yes | Unique transaction ID in the Client's system (Order ID) |\n| `order.amount` | String | ✅ Yes | Amount of the transaction in the format specified for the currency |\n| `order.currency` | String | ✅ Yes | Currency. 3 characters for fiat currencies |\n| `order.description` | String | ✅ Yes | Product name or order description (String up to 1024 characters) |\n| `payee` | Object | ✅ Yes | Payee's information. Specify additional information about Payee for transfer or credit operation if it is required by payment provider. |\n| `payee.name` | String | ✅ Yes | Customer's name |\n| `success_url` | String | ✅ Yes | URL to redirect the Customer in case of the successful payment |\n| `cancel_url` | String | ✅ Yes | URL to return Customer in case of a payment cancellation (“Close” button on the Checkout page) |\n| `hash` | String | ✅ Yes | Special signature to validate your request to Payment Platform Addition in Signature section |\n| `parameters` | Object | ✅ Yes | Extra-parameters required for specific payment method |\n| `parameters.havaleout` | Object | ✅ Yes | Specific parameters block for the havaleout payment method |\n| `parameters.havaleout.user_id` | String | ✅ Yes | User ID |\n| `parameters.havaleout.bankName` | String | ✅ Yes | Name of the bank |\n| `parameters.havaleout.bankAccount` | String | ✅ Yes | IBAN |"
 							},
 							"response": [
@@ -1286,7 +1286,7 @@
 												}
 											}
 										},
-										"url": "{{HPP_HOST}}/api/v1/session"
+										"url": "{{baseURL_HPP}}/api/v1/session"
 									},
 									"_postman_previewlanguage": "json",
 									"header": [
@@ -1645,7 +1645,7 @@
 										}
 									}
 								},
-								"url": "{{HPP_HOST}}/api/v1/session",
+								"url": "{{baseURL_HPP}}/api/v1/session",
 								"description": "## 📥 Request Body\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `merchant_key` | String | ✅ Yes | Key for Merchant identification |\n| `operation` | String | ✅ Yes | Send the “purchase” value so that the payment page for sale initiation will be shown to the customer |\n| `methods` | Array | ✅ Yes | An array of payment methods. Limits the available methods on the Checkout page |\n| `order` | Object | ✅ Yes | Information about an order |\n| `order.number` | String | ✅ Yes | Order ID - is a merchant system ID that refers to particular payment attempt |\n| `order.amount` | String | ✅ Yes | Format depends on currency |\n| `order.currency` | String | ✅ Yes | Currency |\n| `order.description` | String | ✅ Yes | Product name |\n| `customer` | Object | ✅ Yes | Customer's information. Send an object if a payment method needs |\n| `customer.name` | String | ✅ Yes | Customer's name |\n| `customer.email` | String | ✅ Yes | Customer's email address |\n| `billing_address` | Object | ✅ Yes | The billing address of the customer |\n| `billing_address.phone` | String | ✅ Yes | Customer's phone number |\n| `success_url` | String | ✅ Yes | URL to redirect the Customer in case of the successful payment |\n| `cancel_url` | String | ✅ Yes | URL to return Customer in case of a payment cancellation (“Close” button on the Checkout page) |\n| `hash` | String | ✅ Yes | Special signature to validate your request to Payment Platform Addition in Signature section |"
 							},
 							"response": [
@@ -1664,7 +1664,7 @@
 												}
 											}
 										},
-										"url": "{{HPP_HOST}}/api/v1/session"
+										"url": "{{baseURL_HPP}}/api/v1/session"
 									},
 									"_postman_previewlanguage": "json",
 									"header": [
@@ -2013,7 +2013,7 @@
 										}
 									}
 								},
-								"url": "{{HPP_HOST}}/api/v1/session"
+								"url": "{{baseURL_HPP}}/api/v1/session"
 							},
 							"response": [
 								{
@@ -2128,7 +2128,7 @@
 										}
 									}
 								},
-								"url": "{{HPP_HOST}}/api/v1/session"
+								"url": "{{baseURL_HPP}}/api/v1/session"
 							},
 							"response": [
 								{
@@ -2146,7 +2146,7 @@
 												}
 											}
 										},
-										"url": "{{HPP_HOST}}/api/v1/session"
+										"url": "{{baseURL_HPP}}/api/v1/session"
 									},
 									"_postman_previewlanguage": "json",
 									"header": [
@@ -2610,7 +2610,7 @@
 										}
 									}
 								},
-								"url": "{{HPP_HOST}}/api/v1/session"
+								"url": "{{baseURL_HPP}}/api/v1/session"
 							},
 							"response": [
 								{
@@ -2628,7 +2628,7 @@
 												}
 											}
 										},
-										"url": "{{HPP_HOST}}/api/v1/session"
+										"url": "{{baseURL_HPP}}/api/v1/session"
 									},
 									"_postman_previewlanguage": "json",
 									"header": [
