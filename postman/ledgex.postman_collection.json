@@ -2031,7 +2031,7 @@
 												}
 											}
 										},
-										"url": "{{HPP_HOST}}/api/v1/session"
+										"url": "{{baseURL_HPP}}/api/v1/session"
 									},
 									"_postman_previewlanguage": "json",
 									"header": [
