@@ -463,7 +463,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"merchant_key\": \"{{merchant_key}}\",\n  \"operation\": \"credit\",\n  \"methods\": [ \"fp-upi\" ],\n  \"order\": {\n    \"number\": \"{{number}}\",\n    \"amount\": \"1000.00\",\n    \"currency\": \"INR\",\n    \"description\": \"Payout to customer\"\n  },\n  \"payee\":{ \n    \"name\": \"John Doe\",\n    \"email\": \"test@gmail.com\" \n  },\n  \"cancel_url\": \"https://example.com/cancel\",\n  \"success_url\": \"https://example.com/success\",\n  \"hash\": \"{{computed_hash}}\"\n}",
+									"raw": "{\n  \"merchant_key\": \"{{merchant_key}}\",\n  \"operation\": \"credit\",\n  \"methods\": [ \"fp-upi\" ],\n  \"order\": {\n    \"number\": \"{{number}}\",\n    \"amount\": \"5000.00\",\n    \"currency\": \"INR\",\n    \"description\": \"Payout to customer\"\n  },\n  \"cancel_url\": \"https://www.google.com/\",\n  \"success_url\": \"https://www.google.com/\",\n  \"hash\": \"{{computed_hash}}\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2560,6 +2560,91 @@
 					"name": "PayOut",
 					"item": [
 						{
+							"name": "CARD HPP PayOut",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "4ab11857-ee92-4452-908d-d840071d4e7c",
+										"exec": [
+											"const CryptoJS = require('crypto-js');",
+											"",
+											"const PASSWORD = pm.environment.get(\"PASSWORD\");",
+											"",
+											"const requestBody = JSON.parse(pm.request.body.raw);",
+											"const orderId = crypto.randomUUID();",
+											"",
+											"const orderNumber = orderId;       ",
+											"const orderAmount = requestBody.order.amount;",
+											"const orderCurrency = requestBody.order.currency;",
+											"const orderDescription = requestBody.order.description;",
+											"",
+											"const to_md5 = orderNumber + orderAmount + orderCurrency + orderDescription + PASSWORD;",
+											"",
+											"const md5Hash = CryptoJS.MD5(to_md5.toUpperCase()).toString();",
+											"const sha1Hash = CryptoJS.SHA1(md5Hash);",
+											"const hash = CryptoJS.enc.Hex.stringify(sha1Hash);",
+											"pm.variables.set(\"computed_hash\", hash);",
+											"pm.variables.set(\"number\", orderNumber);"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"id": "4c08d4c2-dafe-48bd-b23f-dd9ac9534acf",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"merchant_key\": \"{{merchant_key}}\",\n  \"operation\": \"credit\",\n  \"order\": {\n    \"number\": \"{{number}}\",\n    \"amount\": \"15.00\",\n    \"currency\": \"USD\",\n    \"description\": \"Payout to customer\"\n  },\n  \"payee\":{ \n    \"name\": \"John Doe\"\n  },\n  \"cancel_url\": \"https://www.google.com/\",\n  \"parameters\": {\n        \"card\": {\n            \"payment_url\": \"https://google.com\"\n        }\n    },\n  \"success_url\": \"https://www.google.com/\",\n  \"hash\": \"{{computed_hash}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{HPP_HOST}}/api/v1/session"
+							},
+							"response": [
+								{
+									"id": "4fd52579-12dc-472a-9cc6-ce833e5ce526",
+									"name": "200 OK",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"merchant_key\": \"{{merchant_key}}\",\n  \"operation\": \"credit\",\n  \"order\": {\n    \"number\": \"{{number}}\",\n    \"amount\": \"15.00\",\n    \"currency\": \"USD\",\n    \"description\": \"Payout to customer\"\n  },\n  \"payee\":{ \n    \"name\": \"John Doe\"\n  },\n  \"cancel_url\": \"https://www.google.com/\",\n  \"parameters\": {\n        \"card\": {\n            \"payment_url\": \"https://google.com\"\n        }\n    },\n  \"success_url\": \"https://www.google.com/\",\n  \"hash\": \"{{computed_hash}}\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{HPP_HOST}}/api/v1/session"
+									},
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text"
+										}
+									],
+									"cookie": [],
+									"responseTime": null,
+									"body": "{\n    \"redirect_url\": \"https://example.domain.com/auth/ZXlKMGVYQWlPaUpL...\"\n}"
+								}
+							]
+						},
+						{
 							"name": "CARD H2H PayOut",
 							"event": [
 								{
@@ -2898,91 +2983,6 @@
 									],
 									"responseTime": null,
 									"body": "{\n  \"action\": \"CREDIT2CARD\",\n  \"result\": \"SUCCESS\",\n  \"status\": \"SETTLED\",\n  \"order_id\": \"ORD-10001\",\n  \"trans_id\": \"TRX123456789\",\n  \"trans_date\": \"2025-06-08T12:34:56Z\",\n  \"descriptor\": \"example.com/support\"\n}"
-								}
-							]
-						},
-						{
-							"name": "CARD HPP PayOut",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "4ab11857-ee92-4452-908d-d840071d4e7c",
-										"exec": [
-											"const CryptoJS = require('crypto-js');",
-											"",
-											"const PASSWORD = pm.environment.get(\"PASSWORD\");",
-											"",
-											"const requestBody = JSON.parse(pm.request.body.raw);",
-											"const orderId = crypto.randomUUID();",
-											"",
-											"const orderNumber = orderId;       ",
-											"const orderAmount = requestBody.order.amount;",
-											"const orderCurrency = requestBody.order.currency;",
-											"const orderDescription = requestBody.order.description;",
-											"",
-											"const to_md5 = orderNumber + orderAmount + orderCurrency + orderDescription + PASSWORD;",
-											"",
-											"const md5Hash = CryptoJS.MD5(to_md5.toUpperCase()).toString();",
-											"const sha1Hash = CryptoJS.SHA1(md5Hash);",
-											"const hash = CryptoJS.enc.Hex.stringify(sha1Hash);",
-											"pm.variables.set(\"computed_hash\", hash);",
-											"pm.variables.set(\"number\", orderNumber);"
-										],
-										"type": "text/javascript",
-										"packages": {},
-										"requests": {}
-									}
-								}
-							],
-							"id": "4c08d4c2-dafe-48bd-b23f-dd9ac9534acf",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"merchant_key\": \"{{merchant_key}}\",\n  \"operation\": \"credit\",\n  \"order\": {\n    \"number\": \"{{number}}\",\n    \"amount\": \"15.00\",\n    \"currency\": \"USD\",\n    \"description\": \"Payout to customer\"\n  },\n  \"payee\":{ \n    \"name\": \"John Doe\"\n  },\n  \"cancel_url\": \"https://www.google.com/\",\n  \"parameters\": {\n        \"card\": {\n            \"payment_url\": \"https://google.com\"\n        }\n    },\n  \"success_url\": \"https://www.google.com/\",\n  \"hash\": \"{{computed_hash}}\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": "{{HPP_HOST}}/api/v1/session"
-							},
-							"response": [
-								{
-									"id": "4fd52579-12dc-472a-9cc6-ce833e5ce526",
-									"name": "200 OK",
-									"originalRequest": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n  \"merchant_key\": \"{{merchant_key}}\",\n  \"operation\": \"credit\",\n  \"order\": {\n    \"number\": \"{{number}}\",\n    \"amount\": \"15.00\",\n    \"currency\": \"USD\",\n    \"description\": \"Payout to customer\"\n  },\n  \"payee\":{ \n    \"name\": \"John Doe\"\n  },\n  \"cancel_url\": \"https://www.google.com/\",\n  \"parameters\": {\n        \"card\": {\n            \"payment_url\": \"https://google.com\"\n        }\n    },\n  \"success_url\": \"https://www.google.com/\",\n  \"hash\": \"{{computed_hash}}\"\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": "{{HPP_HOST}}/api/v1/session"
-									},
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "application/json",
-											"description": "",
-											"type": "text"
-										}
-									],
-									"cookie": [],
-									"responseTime": null,
-									"body": "{\n    \"redirect_url\": \"https://example.domain.com/auth/ZXlKMGVYQWlPaUpL...\"\n}"
 								}
 							]
 						}
