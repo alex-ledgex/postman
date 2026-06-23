@@ -2902,7 +2902,7 @@
 							]
 						},
 						{
-							"name": "CARD HPP PayIn",
+							"name": "CARD HPP PayOut",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -2944,7 +2944,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"merchant_key\": \"{{merchant_key}}\",\n  \"operation\": \"credit\",\n  \"order\": {\n    \"number\": \"{{number}}\",\n    \"amount\": \"15.00\",\n    \"currency\": \"USD\",\n    \"description\": \"Payout to customer\"\n  },\n  \"payee\":{ \n    \"name\": \"John Doe\"\n  },\n  \"cancel_url\": \"https://www.google.com/\",\n  \"payment_url\": \"/\",\n  \"success_url\": \"https://www.google.com/\",\n  \"hash\": \"{{computed_hash}}\"\n}",
+									"raw": "{\n  \"merchant_key\": \"{{merchant_key}}\",\n  \"operation\": \"credit\",\n  \"order\": {\n    \"number\": \"{{number}}\",\n    \"amount\": \"15.00\",\n    \"currency\": \"USD\",\n    \"description\": \"Payout to customer\"\n  },\n  \"payee\":{ \n    \"name\": \"John Doe\"\n  },\n  \"cancel_url\": \"https://www.google.com/\",\n  \"parameters\": {\n        \"card\": {\n            \"payment_url\": \"https://google.com\"\n        }\n    },\n  \"success_url\": \"https://www.google.com/\",\n  \"hash\": \"{{computed_hash}}\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2962,7 +2962,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"merchant_key\": \"{{merchant_key}}\",\n  \"operation\": \"credit\",\n  \"order\": {\n    \"number\": \"{{number}}\",\n    \"amount\": \"15.00\",\n    \"currency\": \"USD\",\n    \"description\": \"Payout to customer\"\n  },\n  \"payee\":{ \n    \"name\": \"John Doe\"\n  },\n  \"cancel_url\": \"https://www.google.com/\",\n  \"payment_url\": \"/\",\n  \"success_url\": \"https://www.google.com/\",\n  \"hash\": \"{{computed_hash}}\"\n}",
+											"raw": "{\n  \"merchant_key\": \"{{merchant_key}}\",\n  \"operation\": \"credit\",\n  \"order\": {\n    \"number\": \"{{number}}\",\n    \"amount\": \"15.00\",\n    \"currency\": \"USD\",\n    \"description\": \"Payout to customer\"\n  },\n  \"payee\":{ \n    \"name\": \"John Doe\"\n  },\n  \"cancel_url\": \"https://www.google.com/\",\n  \"parameters\": {\n        \"card\": {\n            \"payment_url\": \"https://google.com\"\n        }\n    },\n  \"success_url\": \"https://www.google.com/\",\n  \"hash\": \"{{computed_hash}}\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
