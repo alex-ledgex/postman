@@ -2550,7 +2550,7 @@
 										}
 									]
 								},
-								"url": "https://pay.ledgex.io/collector/571aa774-6402-11f1-a895-4a61ade17407"
+								"url": "{{baseURL_HPP}}/collector/571aa774-6402-11f1-a895-4a61ade17407"
 							},
 							"response": []
 						}
