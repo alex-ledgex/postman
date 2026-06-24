@@ -2146,7 +2146,7 @@
 												}
 											}
 										},
-										"url": "{{baseURL_HPP}}/api/v1/session"
+										"url": "{{HPP_HOST}}/api/v1/session"
 									},
 									"_postman_previewlanguage": "json",
 									"header": [
@@ -2550,7 +2550,7 @@
 										}
 									]
 								},
-								"url": "{{baseURL_HPP}}/collector/571aa774-6402-11f1-a895-4a61ade17407"
+								"url": "{{HPP_HOST}}/collector/571aa774-6402-11f1-a895-4a61ade17407"
 							},
 							"response": []
 						}
