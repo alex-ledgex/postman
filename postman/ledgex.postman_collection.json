@@ -1063,7 +1063,7 @@
 										}
 									]
 								},
-								"url": "{{baseURL_H2H}}/post",
+								"url": "{{H2H_HOST}}/post",
 								"description": "### 📥 Request Body\n\nMinimum amount PayIn 1000 TRY\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `action` | String | ✅ Yes | Action to perform (=SALE) |\n| `client_key` | String | ✅ Yes | Unique client key (CLIENT_KEY) |\n| `brand` | String | ✅ Yes | Brand through which the transaction is performed |\n| `order_id` | String | ✅ Yes | Transaction ID in the Clients system |\n| `order_amount` | Number | ✅ Yes | The amount of the transaction |\n| `order_currency` | String | ✅ Yes | Currency |\n| `order_description` | String | ✅ Yes | Description of the transaction (product name) |\n| `identifier` | String | ✅ Yes | Extra parameter for transaction. It could be token, account information, additional descriptor etc. |\n| `payer_first_name` | String | ✅ Yes | Customer's first name |\n| `payer_last_name` | String | ✅ Yes | Customer's last name |\n| `payer_email` | String | ✅ Yes | Customer's email address |\n| `payer_phone` | String | ✅ Yes | Customer's phone number |\n| `payer_ip` | String | ✅ Yes | IP-address of the Customer. Both versions, IPv4 and IPv6, can be used. If you are sending IPv6, make sure the payment provider that processes the payments supports it. |\n| `return_url` | String | ✅ Yes | URL to which Customer should be returned after operation in third-party system |\n| `parameters[user_id]` | String | ✅ Yes | Unique user identifier in the merchant's system |\n| `hash` | String | ✅ Yes | Special signature to validate your request to Payment Platform |"
 							},
 							"response": [
@@ -1174,7 +1174,7 @@
 												}
 											]
 										},
-										"url": "{{baseURL_H2H}}/post"
+										"url": "{{H2H_HOST}}/post"
 									},
 									"_postman_previewlanguage": "json",
 									"header": [
@@ -1449,7 +1449,7 @@
 										}
 									]
 								},
-								"url": "{{baseURL_H2H}}/post",
+								"url": "{{H2H_HOST}}/post",
 								"description": "### 📥 Request Body\n\nMinimum amount PayOut 5000 TRY\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `action` | String | ✅ Yes | Action to perform(=CREDIT2VIRTUAL) |\n| `client_key` | String | ✅ Yes | Unique client key (CLIENT_KEY) |\n| `order_id` | String | ✅ Yes | Order ID in the Clients system |\n| `order_amount` | Number | ✅ Yes | The amount of the transaction |\n| `order_currency` | String | ✅ Yes | Currency |\n| `order_description` | String | ✅ Yes | Description of the transaction (product name) |\n| `brand` | String | ✅ Yes | Brand through which the transaction is performed |\n| `payee_first_name` | String | ⬅ Optional | Customer's name |\n| `payee_last_name` | String | ⬅ Optional | Customer's surname |\n| `parameters[user_id]` | String | ⬅ Optional | Brand-specific parameter containing the user ID on the merchant side |\n| `parameters[bankName]` | String | ✅ Yes | Brand-specific parameter containing the name of the recipient's bank |\n| `parameters[bankAccount]` | String | ✅ Yes | Brand-specific parameter containing the IBAN or bank account number of the recipient |\n| `hash` | String | ✅ Yes | Special signature to validate your request to Payment Platform |"
 							},
 							"response": [
@@ -1548,7 +1548,7 @@
 												}
 											]
 										},
-										"url": "{{baseURL_H2H}}/post"
+										"url": "{{H2H_HOST}}/post"
 									},
 									"_postman_previewlanguage": "json",
 									"header": [
@@ -1829,7 +1829,7 @@
 										}
 									]
 								},
-								"url": "{{baseURL_H2H}}/post",
+								"url": "{{H2H_HOST}}/post",
 								"description": "### 📥 Request Body\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `action` | String | ✅ Yes | Action to perform (=SALE) |\n| `client_key` | String | ✅ Yes | Unique client key (CLIENT_KEY) |\n| `brand` | String | ✅ Yes | Brand through which the transaction is performed |\n| `order_id` | String | ✅ Yes | Transaction ID in the Clients system |\n| `order_amount` | Number | ✅ Yes | Format depends on currency |\n| `order_currency` | String | ✅ Yes | Currency |\n| `order_description` | String | ✅ Yes | Description of the transaction (product name) |\n| `identifier` | String | ✅ Yes | Extra parameter for transaction. It could be token, account information, additional descriptor etc. |\n| `payer_first_name` | String | ✅ Yes | Customer's first name |\n| `payer_last_name` | String | ✅ Yes | Customer's last name |\n| `payer_email` | String | ✅ Yes | Customer's email address |\n| `payer_phone` | String | ✅ Yes | Customer's phone number |\n| `payer_ip` | String | ✅ Yes | Customer's IP address |\n| `return_url` | String | ✅ Yes | URL to which Customer should be returned after operation in third-party system |\n| `hash` | String | ✅ Yes | Special signature to validate your request to Payment Platform |"
 							},
 							"response": [
@@ -1934,7 +1934,7 @@
 												}
 											]
 										},
-										"url": "{{baseURL_H2H}}/post"
+										"url": "{{H2H_HOST}}/post"
 									},
 									"_postman_previewlanguage": "json",
 									"header": [
@@ -2349,7 +2349,7 @@
 										}
 									]
 								},
-								"url": "{{baseURL_H2H}}/post"
+								"url": "{{H2H_HOST}}/post"
 							},
 							"response": [
 								{
@@ -2507,7 +2507,7 @@
 												}
 											]
 										},
-										"url": "{{baseURL_H2H}}/post"
+										"url": "{{H2H_HOST}}/post"
 									},
 									"_postman_previewlanguage": "json",
 									"header": [
@@ -2817,7 +2817,7 @@
 										}
 									]
 								},
-								"url": "{{baseURL_H2H}}/post",
+								"url": "{{H2H_HOST}}/post",
 								"description": "### 📥 Request Body\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `action` | String | ✅ Yes | Action to perform (=CREDIT2CARD) |\n| `client_key` | String | ✅ Yes | Unique client key (CLIENT_KEY) |\n| `order_id` | String | ✅ Yes | Transaction ID in the Clients system |\n| `order_amount` | Number | ✅ Yes | Format: Integer |\n| `order_currency` | String | ✅ Yes | Currency |\n| `order_description` | String | ✅ Yes | Description of the transaction (product name) |\n| `card_number` | String | ✅ Yes | Credit Card Number |\n| `payer_first_name` | String | ✅ Yes | Customer's first name |\n| `payer_last_name` | String | ✅ Yes | Customer's last name |\n| `payer_email` | String | ✅ Yes | Customer's email address |\n| `payer_ip` | String | ✅ Yes | Customer's IP address |\n| `hash` | String | ✅ Yes | Special signature to validate your request to Payment Platform |\n| parameters\\[payment_url\\] | String | ✅ Yes | URL for returning the payer |\n| parameters\\[date_of_birth\\] | String | ✅ Yes | Format:  <br>parameters\\[param1\\]: value1 |\n| parameters\\[country_of_birth\\] | String | ✅ Yes | Format:  <br>parameters\\[param1\\]: value1 |\n| parameters\\[nationality_country\\] | String | ✅ Yes | Format:  <br>parameters\\[param1\\]: value1 |\n| parameters\\[beneficiary_address.apartment\\] | String | ✅ Yes | Format:  <br>parameters\\[param1\\]: value1 |\n| parameters\\[beneficiary_address.building\\] | String | ✅ Yes | Format:  <br>parameters\\[param1\\]: value1 |\n| parameters\\[id_type\\] | String | ✅ Yes | Format:  <br>parameters\\[param1\\]: value1 |\n| parameters\\[id_number\\] | String | ✅ Yes | Format:  <br>parameters\\[param1\\]: value1 |\n| parameters\\[id_country\\] | String | ✅ Yes | Format:  <br>parameters\\[param1\\]: value1 |\n| parameters\\[id_expiry_date\\] | String | ✅ Yes | Format:  <br>parameters\\[param1\\]: value1 |"
 							},
 							"response": [
@@ -2964,7 +2964,7 @@
 												}
 											]
 										},
-										"url": "{{baseURL_H2H}}/post"
+										"url": "{{H2H_HOST}}/post"
 									},
 									"_postman_previewlanguage": "json",
 									"header": [
