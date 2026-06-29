@@ -2123,14 +2123,15 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n   \"merchant_key\": \"{{merchant_key}}\",\n    \"operation\": \"purchase\",\n    \"order\": {\n        \"number\": \"{{number}}\",\n        \"amount\": \"15.00\",\n        \"currency\": \"USD\",\n        \"description\": \"test payin\"\n    },\n    \"customer\": {\n        \"name\": \"Joe Dhoe\"\n    },\n    \"success_url\": \"https://www.google.com/\",\n    \"hash\": \"{{computed_hash}}\"\n}",
+									"raw": "{\n   \"merchant_key\": \"{{merchant_key}}\",\n    \"operation\": \"purchase\",\n    \"order\": {\n        \"number\": \"{{number}}\",\n        \"amount\": \"15.00\",\n        \"currency\": \"USD\",\n        \"description\": \"test payin\"\n    },\n    \"success_url\": \"https://www.google.com/\",\n    \"hash\": \"{{computed_hash}}\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
 										}
 									}
 								},
-								"url": "{{HPP_HOST}}/api/v1/session"
+								"url": "{{HPP_HOST}}/api/v1/session",
+								"description": "## 📥 Request Body\n\nMinimum amount PayIn 1000 TRY\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `merchant_key` | String | ✅ Yes | Key for Merchant identification |\n| `operation` | String | ✅ Yes | Defines a payment transaction |\n| `methods` | Array | ⬅ Optional | Array of payment methods |\n| `order` | Object | ✅ Yes | Object containing the transaction order details |\n| `order.number` | String | ✅ Yes | Order ID |\n| `order.amount` | String | ✅ Yes | The amount of the transaction |\n| `order.currency` | String | ✅ Yes | Three-letter currency code |\n| `order.description` | String | ✅ Yes | Product name or order description |\n| `cancel_url` | String | ⬅ Optional | URL to return the Customer in case of payment cancellation |\n| `success_url` | String | ✅ Yes | URL to redirect the Customer after successful payment |\n| `customer` | Object | ⬅ Optional | Object containing customer personal information |\n| `customer.name` | String | ⬅ Optional | Customer's name |\n| `customer.email` | String | ⬅ Optional | Customer's email address |\n| `hash` | String | ✅ Yes | Special signature to validate your request |"
 							},
 							"response": [
 								{
