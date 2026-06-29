@@ -2999,7 +2999,18 @@
 		},
 		{
 			"name": "Havale flex",
-			"item": [],
+			"item": [
+				{
+					"name": "PayIn",
+					"item": [],
+					"id": "e4926185-9cba-460b-89a5-a6f8d56c8dd4"
+				},
+				{
+					"name": "PayOut",
+					"item": [],
+					"id": "9f691ad8-b8e1-4bce-9099-cb574165eaca"
+				}
+			],
 			"id": "20383b42-2bf6-4c65-832d-14e0b2c8e34b"
 		}
 	]
