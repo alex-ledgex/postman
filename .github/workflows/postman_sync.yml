@@ -1,0 +1,24 @@
+name: Sync Postman Collection
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'ledgex.postman_collection.json'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository code
+      uses: actions/checkout@v4
+
+    - name: Update Postman via API
+      run: |
+        curl --request PUT \
+          --url "https://api.getpostman.com/collections/55608715-add2777d-8935-4860-ad80-f4a130fb5c96" \
+          --header "X-Api-Key: ${{ secrets.POSTMAN_API_KEY }}" \
+          --header "Content-Type: application/json" \
+          --data @ledgex.postman_collection.json
