@@ -3054,7 +3054,38 @@
 								},
 								"url": "{{HPP_HOST}}/api/v1/session"
 							},
-							"response": []
+							"response": [
+								{
+									"id": "5311fb6a-dc28-45ee-a143-719f97ca1c5c",
+									"name": "200 OK",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"merchant_key\": \"{{merchant_key}}\",\n  \"operation\": \"purchase\",\n  \"methods\": [\"havale-flex\"],\n  \"order\": {\n    \"number\": \"{{number}}\",\n    \"amount\": \"800.00\",\n    \"currency\": \"TRY\",\n    \"description\": \"Test payment\"\n  },\n  \"success_url\": \"https://example.com/success\",\n  \"cancel_url\": \"https://example.com/cancel\",\n  \"hash\": \"{{computed_hash}}\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{HPP_HOST}}/api/v1/session"
+									},
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text"
+										}
+									],
+									"cookie": [],
+									"responseTime": null,
+									"body": "{\n    \"redirect_url\": \"https://example.domain.com/auth/ZXlKMGVYQWlPaUpL...\"\n}"
+								}
+							]
 						}
 					],
 					"id": "e4926185-9cba-460b-89a5-a6f8d56c8dd4"
