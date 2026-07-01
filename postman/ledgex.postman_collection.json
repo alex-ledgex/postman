@@ -3092,7 +3092,20 @@
 				},
 				{
 					"name": "PayOut",
-					"item": [],
+					"item": [
+						{
+							"name": "havale flex HPP Payout",
+							"id": "7ca54e0d-9d89-4889-a7ce-b2cee104290a",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						}
+					],
 					"id": "9f691ad8-b8e1-4bce-9099-cb574165eaca"
 				}
 			],
