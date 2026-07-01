@@ -3095,13 +3095,67 @@
 					"item": [
 						{
 							"name": "havale flex HPP Payout",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "3e368e18-68ac-4442-8344-264f458ad609",
+										"exec": [
+											"const CryptoJS = require('crypto-js');",
+											"",
+											"const PASSWORD = pm.environment.get(\"PASSWORD\");",
+											"",
+											"const requestBody = JSON.parse(pm.request.body.raw);",
+											"const orderId = crypto.randomUUID();",
+											"",
+											"const orderNumber = orderId;       ",
+											"const orderAmount = requestBody.order.amount;",
+											"const orderCurrency = requestBody.order.currency;",
+											"const orderDescription = requestBody.order.description;",
+											"",
+											"const to_md5 = orderNumber + orderAmount + orderCurrency + orderDescription + PASSWORD;",
+											"",
+											"const md5Hash = CryptoJS.MD5(to_md5.toUpperCase()).toString();",
+											"const sha1Hash = CryptoJS.SHA1(md5Hash);",
+											"const hash = CryptoJS.enc.Hex.stringify(sha1Hash);",
+											"pm.variables.set(\"computed_hash\", hash);",
+											"pm.variables.set(\"number\", orderNumber);"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "a17713a8-c6c7-4fa5-b3a0-ea18902e91c6",
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
 							"id": "7ca54e0d-9d89-4889-a7ce-b2cee104290a",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
 							},
 							"request": {
-								"method": "GET",
-								"header": []
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"merchant_key\": \"{{merchant_key}}\",\n  \"operation\": \"credit\",\n  \"methods\": [\"havale-flex\"],\n  \"order\": {\n    \"number\": \"{{number}}\",\n    \"amount\": \"500.00\",\n    \"currency\": \"TRY\",\n    \"description\": \"Test payment\"\n  },\n  \"success_url\": \"https://example.com/success\",\n  \"cancel_url\": \"https://example.com/cancel\",\n  \"hash\": \"{{computed_hash}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{HPP_HOST}}/api/v1/session"
 							},
 							"response": []
 						}
