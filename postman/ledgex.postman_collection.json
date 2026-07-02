@@ -2605,7 +2605,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"merchant_key\": \"{{merchant_key}}\",\n  \"operation\": \"credit\",\n  \"order\": {\n    \"number\": \"{{number}}\",\n    \"amount\": \"15.00\",\n    \"currency\": \"USD\",\n    \"description\": \"Payout to customer\"\n  },\n  \"cancel_url\": \"https://www.google.com/\",\n  \"parameters\": {\n        \"card\": {\n            \"payment_url\": \"https://google.com\"\n        }\n    },\n  \"success_url\": \"https://www.google.com/\",\n  \"hash\": \"{{computed_hash}}\"\n}",
+									"raw": "{\n  \"merchant_key\": \"{{merchant_key}}\",\n  \"operation\": \"credit\",\n  \"order\": {\n    \"number\": \"{{number}}\",\n    \"amount\": \"15.00\",\n    \"currency\": \"EUR\",\n    \"description\": \"Payout to customer\"\n  },\n  \"cancel_url\": \"https://www.google.com/\",\n  \"parameters\": {\n        \"card\": {\n            \"payment_url\": \"https://google.com\"\n        }\n    },\n  \"success_url\": \"https://www.google.com/\",\n  \"hash\": \"{{computed_hash}}\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
