@@ -3164,6 +3164,24 @@
 				}
 			],
 			"id": "20383b42-2bf6-4c65-832d-14e0b2c8e34b"
+		},
+		{
+			"name": "UPI-FLEX",
+			"item": [
+				{
+					"name": "payin",
+					"id": "e6c8a750-6615-41d1-ab1e-9f857b009759",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			],
+			"id": "e415d0aa-07f4-445c-a94e-55e94fbf1796"
 		}
 	],
 	"event": [
