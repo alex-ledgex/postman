@@ -3398,13 +3398,55 @@
 					"item": [
 						{
 							"name": "kz-light HPP PayIn",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "811b26db-a46d-4465-b2dd-f838a2852235",
+										"exec": [
+											"const CryptoJS = require('crypto-js');",
+											"",
+											"const PASSWORD = pm.environment.get(\"PASSWORD\");",
+											"",
+											"const requestBody = JSON.parse(pm.request.body.raw);",
+											"const orderId = crypto.randomUUID();",
+											"",
+											"const orderNumber = orderId;       ",
+											"const orderAmount = requestBody.order.amount;",
+											"const orderCurrency = requestBody.order.currency;",
+											"const orderDescription = requestBody.order.description;",
+											"",
+											"const to_md5 = orderNumber + orderAmount + orderCurrency + orderDescription + PASSWORD;",
+											"",
+											"const md5Hash = CryptoJS.MD5(to_md5.toUpperCase()).toString();",
+											"const sha1Hash = CryptoJS.SHA1(md5Hash);",
+											"const hash = CryptoJS.enc.Hex.stringify(sha1Hash);",
+											"pm.variables.set(\"computed_hash\", hash);",
+											"pm.variables.set(\"number\", orderNumber);"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
 							"id": "13d664a6-ddf5-4d18-bb6f-f00bb2a6c188",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
 							},
 							"request": {
-								"method": "GET",
-								"header": []
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"merchant_key\": \"{{merchant_key}}\",\n    \"operation\": \"purchase\",\n    \"methods\": [\"kz-light\"],\n    \"order\": {\n    \"number\": \"{{number}}\",\n    \"amount\": \"10.00\",\n    \"currency\": \"USD\",\n    \"description\": \"Test payment\"\n  },\n    \"success_url\": \"https://example.com/success\",\n    \"cancel_url\": \"https://example.com/cancel\",\n    \"hash\": \"{{computed_hash}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{HPP_HOST}}/api/v1/session"
 							},
 							"response": []
 						}
