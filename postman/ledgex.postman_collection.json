@@ -1978,6 +1978,7 @@
 											"",
 											"const requestBody = JSON.parse(pm.request.body.raw);",
 											"const orderId = crypto.randomUUID();",
+											"const clientId = crypto.randomUUID();",
 											"",
 											"const orderNumber = orderId;       ",
 											"const orderAmount = requestBody.order.amount;",
@@ -1990,7 +1991,8 @@
 											"const sha1Hash = CryptoJS.SHA1(md5Hash);",
 											"const hash = CryptoJS.enc.Hex.stringify(sha1Hash);",
 											"pm.variables.set(\"computed_hash\", hash);",
-											"pm.variables.set(\"number\", orderNumber);"
+											"pm.variables.set(\"number\", orderNumber);",
+											"pm.variables.set(\"clientId\", clientId);"
 										],
 										"type": "text/javascript",
 										"packages": {},
@@ -2007,7 +2009,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"merchant_key\": \"{{merchant_key}}\",\n    \"operation\": \"credit\",\n    \"methods\": [\"havale-light\"],\n    \"order\": {\n        \"number\": \"{{number}}\",\n        \"amount\": \"10000.00\",\n        \"currency\": \"TRY\",\n        \"description\": \"Payout to customer\"\n    },\n    \"success_url\": \"https://merchant-site.com/success\",\n    \"cancel_url\": \"https://merchant-site.com/cancel\",\n    \"hash\": \"{{computed_hash}}\"\n}",
+									"raw": "{\n    \"merchant_key\": \"{{merchant_key}}\",\n    \"operation\": \"credit\",\n    \"methods\": [\"havale-light-out\"],\n    \"order\": {\n        \"number\": \"{{number}}\",\n        \"amount\": \"500.00\",\n        \"currency\": \"TRY\",\n        \"description\": \"Payout to customer\"\n    },\n    \"parameters\": {\n        \"havale-light-out\": {\n            \"clientID\": \"{{clientId}}\"\n        }\n    },\n    \"success_url\": \"https://www.google.com/\",\n    \"cancel_url\": \"https://www.google.com/\",\n    \"hash\": \"{{computed_hash}}\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -3157,7 +3159,38 @@
 								},
 								"url": "{{HPP_HOST}}/api/v1/session"
 							},
-							"response": []
+							"response": [
+								{
+									"id": "2f6b5c7c-f0fc-47c7-a4c0-a87e2525ba68",
+									"name": "200 OK",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"merchant_key\": \"{{merchant_key}}\",\n  \"operation\": \"credit\",\n  \"methods\": [\"havale-flex\"],\n  \"order\": {\n    \"number\": \"{{number}}\",\n    \"amount\": \"500.00\",\n    \"currency\": \"TRY\",\n    \"description\": \"Test payment\"\n  },\n  \"success_url\": \"https://example.com/success\",\n  \"cancel_url\": \"https://example.com/cancel\",\n  \"hash\": \"{{computed_hash}}\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{HPP_HOST}}/api/v1/session"
+									},
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text"
+										}
+									],
+									"cookie": [],
+									"responseTime": null,
+									"body": "{\n    \"redirect_url\": \"https://example.domain.com/auth/ZXlKMGVYQWlPaUpL...\"\n}"
+								}
+							]
 						}
 					],
 					"id": "9f691ad8-b8e1-4bce-9099-cb574165eaca"
