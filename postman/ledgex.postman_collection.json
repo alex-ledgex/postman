@@ -3389,6 +3389,30 @@
 				}
 			],
 			"id": "e415d0aa-07f4-445c-a94e-55e94fbf1796"
+		},
+		{
+			"name": "kz-light",
+			"item": [
+				{
+					"name": "PayIn",
+					"item": [
+						{
+							"name": "kz-light HPP PayIn",
+							"id": "13d664a6-ddf5-4d18-bb6f-f00bb2a6c188",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						}
+					],
+					"id": "055753b1-1dcf-4d3c-addc-7096e6574bea"
+				}
+			],
+			"id": "5f03e858-9184-41f5-aac7-fbe826dac193"
 		}
 	],
 	"event": [
