@@ -3448,7 +3448,38 @@
 								},
 								"url": "{{HPP_HOST}}/api/v1/session"
 							},
-							"response": []
+							"response": [
+								{
+									"id": "c3213165-e81e-4ebd-a54f-201370f8a6b9",
+									"name": "200 OK",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"merchant_key\": \"{{merchant_key}}\",\n    \"operation\": \"purchase\",\n    \"methods\": [\"kz-light\"],\n    \"order\": {\n    \"number\": \"{{number}}\",\n    \"amount\": \"10.00\",\n    \"currency\": \"USD\",\n    \"description\": \"Test payment\"\n  },\n    \"success_url\": \"https://example.com/success\",\n    \"cancel_url\": \"https://example.com/cancel\",\n    \"hash\": \"{{computed_hash}}\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{HPP_HOST}}/api/v1/session"
+									},
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text"
+										}
+									],
+									"cookie": [],
+									"responseTime": null,
+									"body": "{\n    \"redirect_url\": \"https://example.domain.com/auth/ZXlKMGVYQWlPaUpL...\"\n}"
+								}
+							]
 						}
 					],
 					"id": "055753b1-1dcf-4d3c-addc-7096e6574bea"
