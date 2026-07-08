@@ -3055,7 +3055,8 @@
 										}
 									}
 								},
-								"url": "{{HPP_HOST}}/api/v1/session"
+								"url": "{{HPP_HOST}}/api/v1/session",
+								"description": "## 📥 Request Body\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `merchant_key` | String | ✅ Yes | Key for Merchant identification |\n| `operation` | String | ✅ Yes | Send the “purchase” value so that the payment page for sale initiation will be shown to the customer. |\n| `methods` | Array | ⬅ Optional | An array of payment methods |\n| `order` | Object | ✅ Yes | Information about an order |\n| `order.number` | String | ✅ Yes | Order ID - is a merchant system ID that refers to particular payment attempt. It is recommended to use unique Order ID per each payment request |\n| `order.amount` | String | ✅ Yes | Format depends on currency |\n| `order.currency` | String | ✅ Yes | Currency |\n| `order.description` | String | ✅ Yes | Product name |\n| `success_url` | String | ✅ Yes | URL to redirect the Customer in case of the successful payment |\n| `cancel_url` | String | ✅ Yes | URL to return Customer in case of a payment cancellation (“Close” button on the Checkout page) |\n| `hash` | String | ✅ Yes | Special signature to validate your request to Payment Platform Addition in Signature section. |"
 							},
 							"response": [
 								{
@@ -3158,7 +3159,8 @@
 										}
 									}
 								},
-								"url": "{{HPP_HOST}}/api/v1/session"
+								"url": "{{HPP_HOST}}/api/v1/session",
+								"description": "## 📥 Request Body\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `merchant_key` | String | ✅ Yes | Key for Merchant identification |\n| `operation` | String | ✅ Yes | Send the “purchase” value so that the payment page for sale initiation will be shown to the customer. |\n| `methods` | Array | ⬅ Optional | An array of payment methods |\n| `order` | Object | ✅ Yes | Information about an order |\n| `order.number` | String | ✅ Yes | Order ID - is a merchant system ID that refers to particular payment attempt. It is recommended to use unique Order ID per each payment request |\n| `order.amount` | String | ✅ Yes | Format depends on currency |\n| `order.currency` | String | ✅ Yes | Currency |\n| `order.description` | String | ✅ Yes | Product name |\n| `success_url` | String | ✅ Yes | URL to redirect the Customer in case of the successful payment |\n| `cancel_url` | String | ✅ Yes | URL to return Customer in case of a payment cancellation (“Close” button on the Checkout page) |\n| `hash` | String | ✅ Yes | Special signature to validate your request to Payment Platform Addition in Signature section. |"
 							},
 							"response": [
 								{
@@ -3255,7 +3257,8 @@
 										}
 									}
 								},
-								"url": "{{HPP_HOST}}/api/v1/session"
+								"url": "{{HPP_HOST}}/api/v1/session",
+								"description": "## 📥 Request Body\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `merchant_key` | String | ✅ Yes | Key for Merchant identification |\n| `operation` | String | ✅ Yes | Send the “purchase” value so that the payment page for sale initiation will be shown to the customer. |\n| `methods` | Array | ⬅ Optional | An array of payment methods |\n| `order` | Object | ✅ Yes | Information about an order |\n| `order.number` | String | ✅ Yes | Order ID - is a merchant system ID that refers to particular payment attempt. It is recommended to use unique Order ID per each payment request |\n| `order.amount` | String | ✅ Yes | Format depends on currency |\n| `order.currency` | String | ✅ Yes | Currency |\n| `order.description` | String | ✅ Yes | Product name |\n| `success_url` | String | ✅ Yes | URL to redirect the Customer in case of the successful payment |\n| `cancel_url` | String | ✅ Yes | URL to return Customer in case of a payment cancellation (“Close” button on the Checkout page) |\n| `hash` | String | ✅ Yes | Special signature to validate your request to Payment Platform Addition in Signature section. |"
 							},
 							"response": [
 								{
@@ -3339,7 +3342,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"merchant_key\": \"{{merchant_key}}\",\n  \"operation\": \"credit\",\n  \"methods\": [ \"upi-flex\" ],\n  \"order\": {\n    \"number\": \"{{number}}\",\n    \"amount\": \"700.00\",\n    \"currency\": \"INR\",\n    \"description\": \"Payout to customer\"\n  },\n  \"payee\": {\n    \"first_name\": \"John\",\n    \"last_name\": \"Doe\",\n    \"name\": \"John Doe\",\n    \"email\": \"test@test.ts\"\n  },\n  \"parameters\": {\n    \"upi-flex\": {\n      \"account_name\": \"John Doe\",\n      \"account_number\": \"1234567890\",\n      \"ifsc\": \"HDFC0001234\"\n    }\n  },\n  \"cancel_url\": \"https://www.google.com/\",\n  \"success_url\": \"https://www.google.com/\",\n  \"hash\": \"{{computed_hash}}\"\n}",
+									"raw": "{\n  \"merchant_key\": \"{{merchant_key}}\",\n  \"operation\": \"credit\",\n  \"methods\": [ \"upi-flex\" ],\n  \"order\": {\n    \"number\": \"{{number}}\",\n    \"amount\": \"700.00\",\n    \"currency\": \"INR\",\n    \"description\": \"Payout to customer\"\n  },\n  \"payee\": {\n    \"name\": \"John Doe\",\n    \"email\": \"test@test.ts\"\n  },\n  \"parameters\": {\n    \"upi-flex\": {\n      \"account_name\": \"John Doe\",\n      \"account_number\": \"1234567890\",\n      \"ifsc\": \"HDFC0001234\"\n    }\n  },\n  \"cancel_url\": \"https://www.google.com/\",\n  \"success_url\": \"https://www.google.com/\",\n  \"hash\": \"{{computed_hash}}\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
