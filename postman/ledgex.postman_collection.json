@@ -3490,13 +3490,48 @@
 		},
 		{
 			"name": "New Request",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "478e6fca-190d-4e59-92fb-baef7dd650b5",
+						"exec": [
+							"const CryptoJS = require('crypto-js');",
+							"const orderNumber = crypto.randomUUID();",
+							"const customer_number = crypto.randomUUID();",
+							"",
+							"pm.variables.set(\"number\", orderNumber);",
+							"pm.variables.set(\"customer_number\", customer_number);"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
 			"id": "39fe6c5c-03ac-4d8e-b972-36a0af67ecb7",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
 			"request": {
-				"method": "GET",
-				"header": []
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{bearer_token_09vd}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"paymentType\": \"DEPOSIT\",\n    \"paymentMethod\": \"PAYMENT_CARD\",\n    \"amount\": 10.00,\n    \"currency\": \"EUR\",\n    \"referenceId\": \"{{number}}\",\n    \"customer\": {\n        \"referenceId\": \"{{customer_number}}\",\n        \"firstName\": \"Hans\",\n        \"lastName\": \"Mueller\",\n        \"email\": \"john@example.com\"\n    },\n    \"force_hpp\": true,\n    \"webhookUrl\": \"https://aspirate-remnant-aneurism.ngrok-free.dev\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://test-api.ledgex.io/pa/api/payments"
 			},
 			"response": []
 		}
@@ -3525,6 +3560,12 @@
 					""
 				]
 			}
+		}
+	],
+	"variable": [
+		{
+			"key": "bearer_token_09vd",
+			"secret": true
 		}
 	]
 }
