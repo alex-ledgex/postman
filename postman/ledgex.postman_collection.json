@@ -3518,13 +3518,13 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "{{bearer_token_09vd}}",
+						"value": "{{token}}",
 						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"paymentType\": \"DEPOSIT\",\n    \"paymentMethod\": \"PAYMENT_CARD\",\n    \"amount\": 10.00,\n    \"currency\": \"EUR\",\n    \"referenceId\": \"{{number}}\",\n    \"customer\": {\n        \"referenceId\": \"{{customer_number}}\",\n        \"firstName\": \"Hans\",\n        \"lastName\": \"Mueller\",\n        \"email\": \"john@example.com\"\n    },\n    \"force_hpp\": true,\n    \"webhookUrl\": \"https://aspirate-remnant-aneurism.ngrok-free.dev\"\n}",
+					"raw": "{\n    \"paymentType\": \"DEPOSIT\",\n    \"paymentMethod\": \"PAYMENT_CARD\",\n    \"amount\": 10.00,\n    \"currency\": \"EUR\",\n    \"referenceId\": \"{{number}}\",\n    \"customer\": {\n        \"referenceId\": \"{{customer_number}}\",\n        \"firstName\": \"Hanss\",\n        \"lastName\": \"Mueller\",\n        \"email\": \"john@example.com\"\n    },\n    \"force_hpp\": true,\n    \"webhookUrl\": \"https://aspirate-remnant-aneurism.ngrok-free.dev\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
